@@ -24,8 +24,16 @@ export function Header() {
             <span>Online</span>
           </Link>
           <nav className="hidden items-center gap-4 text-sm md:flex" style={{ color: "var(--muted)" }}>
+            <Link href="/" className="transition-colors hover:text-primary">Editor</Link>
+            <div className="group relative">
+              <button className="transition-colors hover:text-primary">Tools ▾</button>
+              <div className="invisible absolute left-0 top-full z-50 min-w-[200px] rounded-lg border py-1 shadow-lg group-hover:visible" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+                <Link href="/markdown-to-html/" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">Markdown to HTML</Link>
+                <Link href="/markdown-to-pdf/" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">Markdown to PDF</Link>
+                <Link href="/markdown-to-word/" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">Markdown to Word</Link>
+              </div>
+            </div>
             <Link href="/about/" className="transition-colors hover:text-primary">About</Link>
-            <Link href="/privacy/" className="transition-colors hover:text-primary">Privacy</Link>
             <Link href="/contact/" className="transition-colors hover:text-primary">Contact</Link>
           </nav>
         </div>

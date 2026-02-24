@@ -1,14 +1,20 @@
 "use client";
 
-import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations("nav");
+  const locale = useLocale();
 
   useEffect(() => setMounted(true), []);
+
+  const otherLocale = locale === "en" ? "es" : "en";
+  const localeLabel = locale === "en" ? "ES" : "EN";
 
   return (
     <header className="border-b" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
@@ -24,20 +30,27 @@ export function Header() {
             <span>Online</span>
           </Link>
           <nav className="hidden items-center gap-4 text-sm md:flex" style={{ color: "var(--muted)" }}>
-            <Link href="/" className="transition-colors hover:text-primary">Editor</Link>
+            <Link href="/" className="transition-colors hover:text-primary">{t("editor")}</Link>
             <div className="group relative">
-              <button className="transition-colors hover:text-primary">Tools ▾</button>
+              <button className="transition-colors hover:text-primary">{t("tools")} ▾</button>
               <div className="invisible absolute left-0 top-full z-50 min-w-[200px] rounded-lg border py-1 shadow-lg group-hover:visible" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-                <Link href="/markdown-to-html/" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">Markdown to HTML</Link>
-                <Link href="/markdown-to-pdf/" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">Markdown to PDF</Link>
-                <Link href="/markdown-to-word/" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">Markdown to Word</Link>
+                <Link href="/markdown-to-html" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("toHtml")}</Link>
+                <Link href="/markdown-to-pdf" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("toPdf")}</Link>
+                <Link href="/markdown-to-word" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("toWord")}</Link>
               </div>
             </div>
-            <Link href="/about/" className="transition-colors hover:text-primary">About</Link>
-            <Link href="/contact/" className="transition-colors hover:text-primary">Contact</Link>
+            <Link href="/about" className="transition-colors hover:text-primary">{t("about")}</Link>
+            <Link href="/contact" className="transition-colors hover:text-primary">{t("contact")}</Link>
           </nav>
         </div>
         <div className="flex items-center gap-3">
+          {/* Language switcher */}
+          <a
+            href={otherLocale === "en" ? "/" : `/${otherLocale}/`}
+            className="rounded-lg px-2 py-1 text-xs font-medium transition-colors hover:bg-[var(--surface-alt)]"
+          >
+            {localeLabel}
+          </a>
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -57,7 +70,7 @@ export function Header() {
             </button>
           )}
           <nav className="flex items-center gap-2 md:hidden">
-            <Link href="/about/" className="rounded-lg p-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">About</Link>
+            <Link href="/about" className="rounded-lg p-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("about")}</Link>
           </nav>
         </div>
       </div>

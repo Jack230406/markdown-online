@@ -1,0 +1,8 @@
+# English (default) - serve from root without /en/ prefix
+/ /en/index.html 200
+/about/ /en/about/index.html 200
+/contact/ /en/contact/index.html 200
+/privacy/ /en/privacy/index.html 200
+/markdown-to-html/ /en/markdown-to-html/index.html 200
+/markdown-to-pdf/ /en/markdown-to-pdf/index.html 200
+/markdown-to-word/ /en/markdown-to-word/index.html 200

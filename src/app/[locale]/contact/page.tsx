@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Contact Us - Markdown Online",
@@ -6,7 +7,9 @@ export const metadata: Metadata = {
     "Get in touch with the Markdown Online team. We welcome your feedback, questions, and suggestions about our free online Markdown editor.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-6 text-3xl font-bold">Contact Us</h1>

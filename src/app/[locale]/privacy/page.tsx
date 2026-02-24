@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -6,7 +7,9 @@ export const metadata: Metadata = {
     "Privacy Policy for Markdown Online. Learn how we handle your data, cookies, and third-party services like Google Analytics and AdSense.",
 };
 
-export default function PrivacyPage() {
+export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-6 text-3xl font-bold">Privacy Policy</h1>

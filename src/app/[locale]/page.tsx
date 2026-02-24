@@ -1,6 +1,9 @@
 import { MarkdownEditor } from "@/components/MarkdownEditor";
+import { setRequestLocale } from "next-intl/server";
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

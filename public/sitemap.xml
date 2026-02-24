@@ -1,29 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://markdownonline.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://markdownonline.com/markdown-to-html/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-html/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/es/markdown-to-html/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-html/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://markdownonline.com/markdown-to-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-pdf/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/es/markdown-to-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-pdf/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://markdownonline.com/markdown-to-word/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-word/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/es/markdown-to-word/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-word/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://markdownonline.com/about/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://markdownonline.com/privacy/</loc>

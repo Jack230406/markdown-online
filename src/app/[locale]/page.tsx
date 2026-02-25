@@ -87,9 +87,49 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
 
       {/* SEO content section */}
-      <section className="mx-auto max-w-4xl px-4 py-8">
-        <h2 className="mb-3 text-base font-semibold">{t("seoTitle")}</h2>
-        <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{t("seoDesc")}</p>
+      <section className="mx-auto max-w-4xl px-4 py-10">
+        {/* Intro */}
+        <h2 className="mb-3 text-lg font-semibold">{t("seoTitle")}</h2>
+        <p className="mb-8 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{t("seoDesc")}</p>
+
+        {/* Why choose */}
+        <h2 className="mb-3 text-lg font-semibold">{t("whyTitle")}</h2>
+        <p className="mb-8 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{t("whyDesc")}</p>
+
+        {/* Features grid */}
+        <h2 className="mb-4 text-lg font-semibold">{t("featuresTitle")}</h2>
+        <div className="mb-8 grid gap-6 sm:grid-cols-2">
+          {(["feature1", "feature2", "feature3", "feature4"] as const).map((key) => (
+            <div key={key} className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
+              <h3 className="mb-2 text-sm font-semibold">{t(`${key}Title`)}</h3>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--muted)" }}>{t(`${key}Desc`)}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Use cases */}
+        <h2 className="mb-3 text-lg font-semibold">{t("useCasesTitle")}</h2>
+        <p className="mb-8 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{t("useCasesDesc")}</p>
+
+        {/* How it works */}
+        <h2 className="mb-4 text-lg font-semibold">{t("howItWorksTitle")}</h2>
+        <ol className="mb-8 list-inside list-decimal space-y-2 text-sm" style={{ color: "var(--muted)" }}>
+          <li>{t("howStep1")}</li>
+          <li>{t("howStep2")}</li>
+          <li>{t("howStep3")}</li>
+          <li>{t("howStep4")}</li>
+        </ol>
+
+        {/* FAQ */}
+        <h2 className="mb-4 text-lg font-semibold">{t("faqTitle")}</h2>
+        <div className="space-y-4">
+          {(["faq1", "faq2", "faq3", "faq4"] as const).map((key) => (
+            <details key={key} className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
+              <summary className="cursor-pointer text-sm font-medium">{t(`${key}q`)}</summary>
+              <p className="mt-2 text-xs leading-relaxed" style={{ color: "var(--muted)" }}>{t(`${key}a`)}</p>
+            </details>
+          ))}
+        </div>
       </section>
     </>
   );

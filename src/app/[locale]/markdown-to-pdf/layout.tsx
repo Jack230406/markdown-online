@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
 const PATHNAME = "/markdown-to-pdf";
@@ -9,26 +10,24 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations("toPdf");
   return {
-    title: "Markdown to PDF Converter - Free Online Tool | Markdown Online",
-    description:
-      "Convert Markdown to PDF for free. Paste your Markdown, preview it live, and download a beautifully formatted PDF. No signup required.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       canonical: getCanonicalUrl(PATHNAME, locale),
       languages: getHreflangAlternates(PATHNAME),
     },
     openGraph: {
-      title: "Markdown to PDF Converter - Free Online Tool",
-      description:
-        "Convert Markdown to PDF for free. Preview live and download a beautifully formatted PDF.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
       type: "website",
       url: getCanonicalUrl(PATHNAME, locale),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Markdown to PDF Converter - Free Online Tool",
-      description:
-        "Convert Markdown to PDF for free. Preview live and download a beautifully formatted PDF.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
     },
   };
 }

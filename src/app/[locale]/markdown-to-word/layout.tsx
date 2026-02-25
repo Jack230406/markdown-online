@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
 const PATHNAME = "/markdown-to-word";
@@ -9,26 +10,24 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations("toWord");
   return {
-    title: "Markdown to Word Converter - Free Online Tool | Markdown Online",
-    description:
-      "Convert Markdown to Word (.docx) for free. No signup required. Export your Markdown documents to Word files instantly.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       canonical: getCanonicalUrl(PATHNAME, locale),
       languages: getHreflangAlternates(PATHNAME),
     },
     openGraph: {
-      title: "Markdown to Word Converter - Free Online Tool",
-      description:
-        "Convert Markdown to Word (.docx) for free. Export your documents instantly.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
       type: "website",
       url: getCanonicalUrl(PATHNAME, locale),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Markdown to Word Converter - Free Online Tool",
-      description:
-        "Convert Markdown to Word (.docx) for free. Export your documents instantly.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
     },
   };
 }

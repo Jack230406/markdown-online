@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "About Markdown Online",
-  description:
-    "Learn about Markdown Online, a free browser-based Markdown editor with live preview, export options, and auto-save. No signup or installation required.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations("about");
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: getCanonicalUrl("/about", locale),
+      languages: getHreflangAlternates("/about"),
+    },
+  };
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

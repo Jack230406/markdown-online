@@ -175,6 +175,18 @@
     "faq4q": "¿Qué formato de Word se genera?",
     "faq4a": "La herramienta genera archivos .docx estándar compatibles con Microsoft Word, Google Docs y LibreOffice."
   },
+  "viewer": {
+    "metaTitle": "Visor de Markdown - Herramienta Gratuita en Línea",
+    "metaDescription": "Pega cualquier Markdown y visualízalo al instante. Visor de Markdown en línea gratuito con soporte completo de CommonMark. Sin registro."
+  },
+  "cheatSheet": {
+    "metaTitle": "Hoja de Referencia de Markdown - Guía Rápida",
+    "metaDescription": "Hoja de referencia completa de sintaxis Markdown. Guía rápida para encabezados, enlaces, imágenes, tablas, bloques de código y más."
+  },
+  "tableGenerator": {
+    "metaTitle": "Generador de Tablas Markdown - Herramienta Gratuita en Línea",
+    "metaDescription": "Crea tablas Markdown visualmente. Edita celdas, configura la alineación de columnas y copia el código Markdown generado. Gratis, sin registro."
+  },
   "about": {
     "title": "Acerca de Markdown Online",
     "metaTitle": "Acerca de Nosotros",

@@ -175,6 +175,18 @@
     "faq4q": "What Word format is generated?",
     "faq4a": "The tool generates standard .docx files compatible with Microsoft Word, Google Docs, and LibreOffice."
   },
+  "viewer": {
+    "metaTitle": "Markdown Viewer - Free Online Tool",
+    "metaDescription": "Paste any Markdown and see it rendered instantly. Free online Markdown viewer with full CommonMark support. No signup required."
+  },
+  "cheatSheet": {
+    "metaTitle": "Markdown Cheat Sheet - Quick Reference",
+    "metaDescription": "Complete Markdown syntax cheat sheet. Quick reference for headings, links, images, tables, code blocks, and more."
+  },
+  "tableGenerator": {
+    "metaTitle": "Markdown Table Generator - Free Online Tool",
+    "metaDescription": "Create Markdown tables visually. Edit cells, set column alignment, and copy the generated Markdown code. Free, no signup required."
+  },
   "about": {
     "title": "About Markdown Online",
     "metaTitle": "About Us",

@@ -175,6 +175,18 @@
     "faq4q": "生成的是什么 Word 格式？",
     "faq4a": "本工具生成标准的 .docx 文件，兼容 Microsoft Word、Google Docs 和 LibreOffice。"
   },
+  "viewer": {
+    "metaTitle": "Markdown 预览器 - 免费在线工具",
+    "metaDescription": "粘贴任意 Markdown 即时查看渲染效果。免费在线 Markdown 预览器，完整支持 CommonMark 规范，无需注册。"
+  },
+  "cheatSheet": {
+    "metaTitle": "Markdown 速查表 - 快速参考",
+    "metaDescription": "完整的 Markdown 语法速查表。标题、链接、图片、表格、代码块等快速参考指南。"
+  },
+  "tableGenerator": {
+    "metaTitle": "Markdown 表格生成器 - 免费在线工具",
+    "metaDescription": "可视化创建 Markdown 表格。编辑单元格、设置列对齐方式并复制生成的 Markdown 代码。免费，无需注册。"
+  },
   "about": {
     "title": "关于 Markdown Online",
     "metaTitle": "关于我们",

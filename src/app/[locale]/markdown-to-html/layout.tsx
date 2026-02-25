@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
 const PATHNAME = "/markdown-to-html";
@@ -9,26 +10,24 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations("toHtml");
   return {
-    title: "Markdown to HTML Converter - Free Online Tool | Markdown Online",
-    description:
-      "Convert Markdown to clean HTML code for free. Paste your Markdown, get the HTML output instantly. Copy or download the HTML file. No signup required.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: {
       canonical: getCanonicalUrl(PATHNAME, locale),
       languages: getHreflangAlternates(PATHNAME),
     },
     openGraph: {
-      title: "Markdown to HTML Converter - Free Online Tool",
-      description:
-        "Convert Markdown to clean HTML code for free. Copy or download the HTML output instantly.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
       type: "website",
       url: getCanonicalUrl(PATHNAME, locale),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Markdown to HTML Converter - Free Online Tool",
-      description:
-        "Convert Markdown to clean HTML code for free. Copy or download the HTML output instantly.",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
     },
   };
 }

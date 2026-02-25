@@ -5,20 +5,23 @@ import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations("home");
   return {
+    title: t("title"),
+    description: t("description"),
     alternates: {
       canonical: getCanonicalUrl("/", locale),
       languages: getHreflangAlternates("/"),
     },
     openGraph: {
-      title: "Markdown Online - Free Markdown Editor",
-      description: "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
+      title: t("title"),
+      description: t("description"),
       url: getCanonicalUrl("/", locale),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Markdown Online - Free Markdown Editor",
-      description: "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
+      title: t("title"),
+      description: t("description"),
     },
   };
 }

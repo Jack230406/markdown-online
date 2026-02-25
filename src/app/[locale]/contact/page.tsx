@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact Us - Markdown Online",
-  description:
-    "Get in touch with the Markdown Online team. We welcome your feedback, questions, and suggestions about our free online Markdown editor.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations("contact");
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: getCanonicalUrl("/contact", locale),
+      languages: getHreflangAlternates("/contact"),
+    },
+  };
+}
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

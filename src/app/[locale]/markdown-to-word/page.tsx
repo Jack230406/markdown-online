@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import MarkdownIt from "markdown-it";
 
 const SAMPLE = `# Meeting Notes
@@ -41,12 +41,28 @@ export default function MarkdownToWordPage() {
   const [content, setContent] = useState(SAMPLE);
   const [activeTab, setActiveTab] = useState<"input" | "preview">("input");
   const [converting, setConverting] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const md = useMemo(
     () => MarkdownIt({ html: true, linkify: true, typographer: true }),
     []
   );
   const renderedHtml = useMemo(() => md.render(content), [md, content]);
+
+  const handleFileUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target?.result;
+        if (typeof text === "string") setContent(text);
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+    },
+    []
+  );
 
   const exportWord = useCallback(async () => {
     setConverting(true);
@@ -151,13 +167,21 @@ export default function MarkdownToWordPage() {
           Convert Markdown to .docx Word documents instantly. Free, no signup required.
         </p>
 
-        <div className="mb-4">
+        <div className="mb-4 flex flex-wrap gap-2">
           <button
             onClick={exportWord}
             disabled={converting}
             className="rounded-lg bg-blue-500 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600 disabled:opacity-50"
           >
             {converting ? "Converting..." : "⬇ Download .docx"}
+          </button>
+          <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--surface-alt)]"
+            style={{ borderColor: "var(--border)" }}
+          >
+            ↑ Upload .md
           </button>
         </div>
 

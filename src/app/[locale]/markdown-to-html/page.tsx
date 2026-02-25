@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import MarkdownIt from "markdown-it";
 
 const SAMPLE = `# Hello World
@@ -30,6 +30,7 @@ export default function MarkdownToHtmlPage() {
   const [content, setContent] = useState(SAMPLE);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<"input" | "output">("input");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const md = useMemo(
     () => MarkdownIt({ html: true, linkify: true, typographer: true }),
@@ -43,6 +44,21 @@ export default function MarkdownToHtmlPage() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [renderedHtml]);
+
+  const handleFileUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target?.result;
+        if (typeof text === "string") setContent(text);
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+    },
+    []
+  );
 
   const downloadHtml = useCallback(() => {
     const full = `<!DOCTYPE html>
@@ -105,6 +121,14 @@ export default function MarkdownToHtmlPage() {
             style={{ borderColor: "var(--border)" }}
           >
             ↓ Download .html
+          </button>
+          <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--surface-alt)]"
+            style={{ borderColor: "var(--border)" }}
+          >
+            ↑ Upload .md
           </button>
         </div>
 

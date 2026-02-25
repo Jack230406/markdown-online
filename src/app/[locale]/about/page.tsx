@@ -88,9 +88,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </div>
 
       {/* Ad placeholder */}
-      <div className="ad-placeholder mt-12 flex items-center justify-center rounded border py-8 text-xs" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-        {/* AdSense content ad slot */}
-      </div>
     </div>
   );
 }

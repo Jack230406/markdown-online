@@ -73,7 +73,6 @@ export default function MarkdownCheatSheetPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      <div className="ad-placeholder mb-4 flex h-[90px] items-center justify-center rounded border text-xs" style={{ borderColor: "var(--border)", color: "var(--muted)" }} />
 
       <h1 className="mb-2 text-3xl font-bold">Markdown Cheat Sheet</h1>
       <p className="mb-8" style={{ color: "var(--muted)" }}>
@@ -132,7 +131,6 @@ export default function MarkdownCheatSheetPage() {
         </ul>
       </div>
 
-      <div className="ad-placeholder mt-8 flex h-[90px] items-center justify-center rounded border text-xs" style={{ borderColor: "var(--border)", color: "var(--muted)" }} />
     </div>
   );
 }

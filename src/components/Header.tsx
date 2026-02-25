@@ -32,7 +32,7 @@ export function Header() {
   const otherLocales = locales.filter((l) => l.code !== locale);
 
   return (
-    <header className="border-b" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+    <header className="sticky top-0 z-50 border-b" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 font-bold text-lg">

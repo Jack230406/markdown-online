@@ -85,7 +85,6 @@ export default function MarkdownToHtmlPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-8">
         {/* Ad placeholder top */}
-        <div className="ad-placeholder mb-4 flex h-[90px] items-center justify-center rounded border text-xs" style={{ borderColor: "var(--border)", color: "var(--muted)" }} />
 
         <h1 className="mb-2 text-3xl font-bold">Markdown to HTML Converter</h1>
         <p className="mb-6" style={{ color: "var(--muted)" }}>
@@ -196,7 +195,6 @@ export default function MarkdownToHtmlPage() {
         </section>
 
         {/* Ad placeholder bottom */}
-        <div className="ad-placeholder mt-8 flex h-[90px] items-center justify-center rounded border text-xs" style={{ borderColor: "var(--border)", color: "var(--muted)" }} />
       </div>
     </>
   );

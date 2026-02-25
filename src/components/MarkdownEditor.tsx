@@ -192,25 +192,7 @@ a { color: #3b82f6; }
     <div className="flex h-full flex-col">
       {/* Toolbar */}
       <div style={{ background: "var(--surface)" }}>
-        {/* Row 1: Formatting buttons */}
-        <div
-          className="flex flex-wrap items-center gap-1 border-b px-3 py-1.5"
-          style={{ borderColor: "var(--border)" }}
-        >
-          {toolbarActions.map((action, i) => (
-            <button
-              key={action.label}
-              onClick={() => handleToolbarClick(i)}
-              title={action.label}
-              className="rounded px-2 py-1 text-sm font-medium transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
-              style={{ minWidth: 32 }}
-            >
-              {action.icon}
-            </button>
-          ))}
-        </div>
-
-        {/* Row 2: File operations + Status bar */}
+        {/* Row 1: File operations + Status bar */}
         <div
           className="flex flex-wrap items-center gap-1 border-b px-3 py-1.5"
           style={{ borderColor: "var(--border)" }}
@@ -264,6 +246,24 @@ a { color: #3b82f6; }
               </span>
             )}
           </div>
+        </div>
+
+        {/* Row 2: Formatting buttons */}
+        <div
+          className="flex flex-wrap items-center gap-1 border-b px-3 py-1.5"
+          style={{ borderColor: "var(--border)" }}
+        >
+          {toolbarActions.map((action, i) => (
+            <button
+              key={action.label}
+              onClick={() => handleToolbarClick(i)}
+              title={action.label}
+              className="rounded px-2 py-1 text-sm font-medium transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
+              style={{ minWidth: 32 }}
+            >
+              {action.icon}
+            </button>
+          ))}
         </div>
       </div>
 

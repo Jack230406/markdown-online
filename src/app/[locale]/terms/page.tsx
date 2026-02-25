@@ -5,30 +5,31 @@ import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations("privacy");
+  const t = await getTranslations("terms");
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: getCanonicalUrl("/privacy", locale),
-      languages: getHreflangAlternates("/privacy"),
+      canonical: getCanonicalUrl("/terms", locale),
+      languages: getHreflangAlternates("/terms"),
     },
   };
 }
 
-export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("privacy");
+  const t = await getTranslations("terms");
 
   const sections = [
-    { title: "infoTitle", desc: ["infoDesc1", "infoDesc2"] },
-    { title: "cookiesTitle", desc: ["cookiesDesc"] },
-    { title: "analyticsTitle", desc: ["analyticsDesc"] },
-    { title: "localStorageTitle", desc: ["localStorageDesc"] },
+    { title: "useTitle", desc: ["useDesc"] },
+    { title: "contentTitle", desc: ["contentDesc"] },
+    { title: "ipTitle", desc: ["ipDesc"] },
+    { title: "disclaimerTitle", desc: ["disclaimerDesc"] },
+    { title: "limitationTitle", desc: ["limitationDesc"] },
     { title: "thirdPartyTitle", desc: ["thirdPartyDesc"] },
-    { title: "childrenTitle", desc: ["childrenDesc"] },
     { title: "changesTitle", desc: ["changesDesc"] },
+    { title: "governingTitle", desc: ["governingDesc"] },
   ];
 
   return (

@@ -183,7 +183,26 @@
   "privacy": {
     "title": "隐私政策",
     "metaTitle": "隐私政策",
-    "metaDescription": "Markdown Online 的隐私政策，了解我们如何处理你的数据。"
+    "metaDescription": "Markdown Online 隐私政策。了解我们如何处理您的数据。",
+    "lastUpdated": "最后更新：2026 年 2 月",
+    "intro": "Markdown Online 致力于保护您的隐私。本隐私政策说明了当您访问我们的网站 markdownonline.app 时，我们如何收集、使用和保护信息。使用本站即表示您同意本政策中描述的做法。",
+    "infoTitle": "我们收集的信息",
+    "infoDesc1": "Markdown Online 在设计时充分考虑了隐私保护。编辑器完全在您的浏览器中运行，我们不会收集、存储或传输您编写的任何内容。",
+    "infoDesc2": "但是，当您访问本站时，我们可能会自动收集某些非个人信息，包括浏览器类型、操作系统、来源网站、访问页面、大致地理位置和设备类型。",
+    "cookiesTitle": "Cookie 和跟踪技术",
+    "cookiesDesc": "我们使用 Cookie 和类似的跟踪技术来改善您的体验。必要 Cookie 是网站正常运行所必需的。您可以通过浏览器设置控制 Cookie。",
+    "analyticsTitle": "Google Analytics",
+    "analyticsDesc": "我们使用 Google Analytics 分析流量和使用模式。",
+    "localStorageTitle": "本地存储",
+    "localStorageDesc": "本站使用浏览器的本地存储自动保存您的 Markdown 内容。这些数据完全存储在您的设备上，永远不会传输到我们的服务器。",
+    "thirdPartyTitle": "第三方链接",
+    "thirdPartyDesc": "本站可能包含指向第三方网站的链接。我们不对这些网站的隐私做法或内容负责。",
+    "childrenTitle": "儿童隐私",
+    "childrenDesc": "本站不面向 13 岁以下的儿童。我们不会故意收集儿童的个人信息。",
+    "changesTitle": "政策变更",
+    "changesDesc": "我们可能会不时更新本隐私政策。任何变更都将在本页面发布并更新修订日期。",
+    "contactTitle": "联系我们",
+    "contactDesc": "如果您对本隐私政策有任何疑问，请访问我们的"
   },
   "contact": {
     "title": "联系我们",
@@ -197,6 +216,33 @@
     "copyright": "© 2026 Markdown Online. 保留所有权利。",
     "tagline": "免费在线 Markdown 编辑器，支持实时预览和多种导出选项。",
     "about": "关于",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "terms": {
+    "title": "服务条款",
+    "metaTitle": "服务条款",
+    "metaDescription": "Markdown Online 服务条款。请阅读我们的条款和条件。",
+    "lastUpdated": "最后更新：2026 年 2 月",
+    "intro": "欢迎使用 Markdown Online。访问或使用我们的网站 markdownonline.app，即表示您同意受本服务条款的约束。如果您不同意这些条款，请勿使用本站。",
+    "useTitle": "服务使用",
+    "useDesc": "Markdown Online 提供免费的浏览器端 Markdown 编辑器和转换工具。您可以将本服务用于个人或商业用途。您同意不会滥用本服务。",
+    "contentTitle": "您的内容",
+    "contentDesc": "您使用 Markdown Online 创建的所有内容均属于您。编辑器完全在您的浏览器中运行，文档仅存储在您浏览器的本地存储中。",
+    "ipTitle": "知识产权",
+    "ipDesc": "Markdown Online 网站，包括其设计、代码、标志和内容，均为我们所有，受知识产权法保护。",
+    "disclaimerTitle": "免责声明",
+    "disclaimerDesc": "本服务按“原样”和“可用”的基础提供，不提供任何形式的保证。我们不保证服务不会中断或没有错误。您自行承担使用风险。",
+    "limitationTitle": "责任限制",
+    "limitationDesc": "在法律允许的最大范围内，Markdown Online 不对因使用本服务而产生的任何间接、附带、特殊或后果性损害负责。",
+    "thirdPartyTitle": "第三方服务",
+    "thirdPartyDesc": "本站可能使用 Google Analytics 和 Google AdSense 等第三方服务。您的使用受其各自条款的约束。",
+    "changesTitle": "条款变更",
+    "changesDesc": "我们保留随时修改本服务条款的权利。变更将在本页面发布。",
+    "governingTitle": "适用法律",
+    "governingDesc": "本服务条款将根据适用法律进行管辖和解释。",
+    "contactTitle": "联系我们",
+    "contactDesc": "如果您对本服务条款有任何疑问，请访问我们的"
   }
 }

@@ -183,7 +183,26 @@
   "privacy": {
     "title": "Política de Privacidad",
     "metaTitle": "Política de Privacidad",
-    "metaDescription": "Política de privacidad de Markdown Online. Conoce cómo manejamos tus datos."
+    "metaDescription": "Política de Privacidad de Markdown Online. Conozca cómo manejamos sus datos.",
+    "lastUpdated": "Última actualización: febrero de 2026",
+    "intro": "En Markdown Online, estamos comprometidos con la protección de su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos y protegemos la información cuando visita nuestro sitio web en markdownonline.app. Al usar el Sitio, usted acepta las prácticas descritas en esta política.",
+    "infoTitle": "Información que Recopilamos",
+    "infoDesc1": "Markdown Online está diseñado pensando en la privacidad. El editor se ejecuta completamente en su navegador y no recopilamos, almacenamos ni transmitimos ningún contenido que escriba.",
+    "infoDesc2": "Sin embargo, podemos recopilar automáticamente cierta información no personal cuando visita el Sitio, incluyendo tipo de navegador, sistema operativo, sitio web de referencia, páginas visitadas, ubicación geográfica aproximada y tipo de dispositivo.",
+    "cookiesTitle": "Cookies y Tecnologías de Seguimiento",
+    "cookiesDesc": "Utilizamos cookies y tecnologías similares para mejorar su experiencia. Las cookies esenciales son necesarias para el funcionamiento del Sitio. Puede controlar las cookies a través de la configuración de su navegador.",
+    "analyticsTitle": "Google Analytics",
+    "analyticsDesc": "Utilizamos Google Analytics para analizar el tráfico y los patrones de uso.",
+    "localStorageTitle": "Almacenamiento Local",
+    "localStorageDesc": "El Sitio utiliza el almacenamiento local de su navegador para guardar su contenido Markdown automáticamente. Estos datos se almacenan completamente en su dispositivo.",
+    "thirdPartyTitle": "Enlaces a Terceros",
+    "thirdPartyDesc": "El Sitio puede contener enlaces a sitios web de terceros. No somos responsables de las prácticas de privacidad de esos sitios.",
+    "childrenTitle": "Privacidad de los Niños",
+    "childrenDesc": "El Sitio no está dirigido a niños menores de 13 años.",
+    "changesTitle": "Cambios en Esta Política",
+    "changesDesc": "Podemos actualizar esta Política de Privacidad periódicamente.",
+    "contactTitle": "Contáctenos",
+    "contactDesc": "Si tiene alguna pregunta sobre esta Política de Privacidad, visite nuestra"
   },
   "contact": {
     "title": "Contáctanos",
@@ -197,6 +216,33 @@
     "copyright": "© 2026 Markdown Online. Todos los derechos reservados.",
     "tagline": "Editor de Markdown en línea gratuito con vista previa en vivo y opciones de exportación.",
     "about": "Acerca de",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "terms": {
+    "title": "Términos de Servicio",
+    "metaTitle": "Términos de Servicio",
+    "metaDescription": "Términos de Servicio de Markdown Online. Lea nuestros términos y condiciones.",
+    "lastUpdated": "Última actualización: febrero de 2026",
+    "intro": "Bienvenido a Markdown Online. Al acceder o usar nuestro sitio web en markdownonline.app, usted acepta estar sujeto a estos Términos de Servicio. Si no está de acuerdo, por favor no use el Sitio.",
+    "useTitle": "Uso del Servicio",
+    "useDesc": "Markdown Online proporciona un editor de Markdown gratuito basado en navegador y herramientas de conversión. Puede usar el Servicio para fines personales o comerciales. Se compromete a no hacer un uso indebido del Servicio.",
+    "contentTitle": "Su Contenido",
+    "contentDesc": "Todo el contenido que cree con Markdown Online le pertenece. El editor se ejecuta completamente en su navegador y sus documentos se almacenan solo en el almacenamiento local de su navegador.",
+    "ipTitle": "Propiedad Intelectual",
+    "ipDesc": "El sitio web de Markdown Online, incluyendo su diseño, código, logotipos y contenido, es de nuestra propiedad y está protegido por leyes de propiedad intelectual.",
+    "disclaimerTitle": "Exención de Garantías",
+    "disclaimerDesc": "El Servicio se proporciona \"tal cual\" y \"según disponibilidad\" sin garantías de ningún tipo. No garantizamos que el Servicio sea ininterrumpido o libre de errores.",
+    "limitationTitle": "Limitación de Responsabilidad",
+    "limitationDesc": "En la máxima medida permitida por la ley, Markdown Online no será responsable de ningún daño indirecto, incidental, especial o consecuente derivado del uso del Servicio.",
+    "thirdPartyTitle": "Servicios de Terceros",
+    "thirdPartyDesc": "El Sitio puede utilizar servicios de terceros como Google Analytics y Google AdSense. Su uso está sujeto a sus respectivos términos.",
+    "changesTitle": "Cambios en Estos Términos",
+    "changesDesc": "Nos reservamos el derecho de modificar estos Términos de Servicio en cualquier momento. Los cambios se publicarán en esta página.",
+    "governingTitle": "Ley Aplicable",
+    "governingDesc": "Estos Términos de Servicio se regirán e interpretarán de acuerdo con las leyes aplicables.",
+    "contactTitle": "Contáctenos",
+    "contactDesc": "Si tiene alguna pregunta sobre estos Términos de Servicio, visite nuestra"
   }
 }

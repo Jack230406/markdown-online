@@ -12,7 +12,8 @@ export function Footer() {
         <p>{t("copyright")}</p>
         <nav className="flex gap-4">
           <Link href="/about" className="transition-colors hover:text-primary">{t("about")}</Link>
-          <Link href="/privacy" className="transition-colors hover:text-primary">{t("legal")}</Link>
+          <Link href="/privacy" className="transition-colors hover:text-primary">{t("privacy")}</Link>
+          <Link href="/terms" className="transition-colors hover:text-primary">{t("terms")}</Link>
           <Link href="/contact" className="transition-colors hover:text-primary">{t("contact")}</Link>
         </nav>
       </div>

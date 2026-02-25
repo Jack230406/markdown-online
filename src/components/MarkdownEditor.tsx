@@ -14,7 +14,9 @@ export function MarkdownEditor() {
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "idle">("idle");
   const [copied, setCopied] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const scrollingRef = useRef<"editor" | "preview" | null>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
   const md = useMemo(
@@ -83,6 +85,29 @@ export function MarkdownEditor() {
     },
     [handleToolbarClick]
   );
+
+  // Sync scroll between editor and preview
+  const handleEditorScroll = useCallback(() => {
+    if (scrollingRef.current === "preview") return;
+    scrollingRef.current = "editor";
+    const textarea = textareaRef.current;
+    const preview = previewRef.current;
+    if (!textarea || !preview) return;
+    const ratio = textarea.scrollTop / (textarea.scrollHeight - textarea.clientHeight || 1);
+    preview.scrollTop = ratio * (preview.scrollHeight - preview.clientHeight);
+    requestAnimationFrame(() => { scrollingRef.current = null; });
+  }, []);
+
+  const handlePreviewScroll = useCallback(() => {
+    if (scrollingRef.current === "editor") return;
+    scrollingRef.current = "preview";
+    const textarea = textareaRef.current;
+    const preview = previewRef.current;
+    if (!textarea || !preview) return;
+    const ratio = preview.scrollTop / (preview.scrollHeight - preview.clientHeight || 1);
+    textarea.scrollTop = ratio * (textarea.scrollHeight - textarea.clientHeight);
+    requestAnimationFrame(() => { scrollingRef.current = null; });
+  }, []);
 
   // Export functions
   const downloadFile = useCallback(
@@ -267,6 +292,7 @@ a { color: #3b82f6; }
             value={content}
             onChange={(e) => setContent(e.target.value)}
             onKeyDown={handleKeyDown}
+            onScroll={handleEditorScroll}
             className="editor-textarea h-full w-full flex-1 border-none bg-transparent p-4 outline-none"
             placeholder="Type your Markdown here..."
             spellCheck={false}
@@ -275,6 +301,8 @@ a { color: #3b82f6; }
 
         {/* Preview pane */}
         <div
+          ref={previewRef}
+          onScroll={handlePreviewScroll}
           className={`flex-1 ${activeTab === "editor" ? "hidden md:block" : "block"} overflow-auto p-4`}
         >
           <div

@@ -126,6 +126,16 @@ export default function MarkdownTableGeneratorPage() {
     setCopied(true); setTimeout(() => setCopied(false), 2000);
   }, [markdown]);
 
+  const downloadMd = useCallback(() => {
+    const blob = new Blob([markdown], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "table.md";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [markdown]);
+
   const alignIcon = (a: string) => a === "left" ? "⬅" : a === "center" ? "↔" : "➡";
 
   const faqData = [
@@ -148,6 +158,9 @@ export default function MarkdownTableGeneratorPage() {
         <button onClick={removeCol} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>- Column</button>
         <button onClick={copy} className="rounded-lg bg-blue-500 px-4 py-1 text-sm font-medium text-white hover:bg-blue-600">
           {copied ? "✓ Copied!" : "Copy Markdown"}
+        </button>
+        <button onClick={downloadMd} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+          ↓ .md
         </button>
         <button onClick={() => setShowImport(!showImport)} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
           ↑ Import

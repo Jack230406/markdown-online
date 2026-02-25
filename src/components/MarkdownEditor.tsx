@@ -44,6 +44,14 @@ export function MarkdownEditor() {
 
   const renderedHtml = useMemo(() => md.render(content), [md, content]);
 
+  // Word & character count
+  const wordCount = useMemo(() => {
+    const trimmed = content.trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).length;
+  }, [content]);
+  const charCount = content.length;
+
   const handleToolbarClick = useCallback(
     (index: number) => {
       const textarea = textareaRef.current;
@@ -53,6 +61,26 @@ export function MarkdownEditor() {
       setContent(newContent);
     },
     []
+  );
+
+  // Keyboard shortcuts
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      const mod = e.metaKey || e.ctrlKey;
+      if (!mod) return;
+      const shortcuts: Record<string, number> = {
+        b: 0, // Bold
+        i: 1, // Italic
+        h: 2, // Heading
+        k: 3, // Link
+      };
+      const index = shortcuts[e.key.toLowerCase()];
+      if (index !== undefined) {
+        e.preventDefault();
+        handleToolbarClick(index);
+      }
+    },
+    [handleToolbarClick]
   );
 
   // Export functions
@@ -148,8 +176,9 @@ a { color: #3b82f6; }
           </button>
         </div>
 
-        {/* Save status */}
-        <div className="ml-auto flex items-center gap-2 text-xs" style={{ color: "var(--muted)" }}>
+        {/* Word count & Save status */}
+        <div className="ml-auto flex items-center gap-3 text-xs" style={{ color: "var(--muted)" }}>
+          <span>{wordCount} words · {charCount} chars</span>
           {saveStatus === "saved" && (
             <span className="flex items-center gap-1">
               <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
@@ -198,6 +227,7 @@ a { color: #3b82f6; }
             ref={textareaRef}
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={handleKeyDown}
             className="editor-textarea h-full w-full flex-1 border-none bg-transparent p-4 outline-none"
             placeholder="Type your Markdown here..."
             spellCheck={false}

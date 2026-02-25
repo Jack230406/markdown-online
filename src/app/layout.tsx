@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Markdown Online - Free Markdown Editor & Converter",
+    default: "Markdown Online - Free Editor with Live Preview",
     template: "%s | Markdown Online",
   },
   description:
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Markdown Online",
-    title: "Markdown Online - Free Markdown Editor",
+    title: "Markdown Online - Free Editor with Live Preview",
     description:
       "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
     url: "https://markdownonline.app",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Markdown Online - Free Markdown Editor",
+    title: "Markdown Online - Free Editor with Live Preview",
     description:
       "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
   },

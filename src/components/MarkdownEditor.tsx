@@ -154,6 +154,24 @@ a { color: #3b82f6; }
     downloadFile("document.html", html, "text/html");
   }, [renderedHtml, downloadFile]);
 
+  const downloadPdf = useCallback(async () => {
+    const html2pdf = (await import("html2pdf.js")).default;
+    const container = document.createElement("div");
+    container.innerHTML = renderedHtml;
+    container.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    container.style.lineHeight = "1.7";
+    container.style.color = "#1a1a2e";
+    html2pdf()
+      .set({
+        margin: 15,
+        filename: "markdown-export.pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      })
+      .from(container)
+      .save();
+  }, [renderedHtml]);
+
   const copyToClipboard = useCallback(
     async (text: string, label: string) => {
       await navigator.clipboard.writeText(text);
@@ -200,10 +218,10 @@ a { color: #3b82f6; }
           {/* Copy group */}
           <div className="flex items-center gap-1">
             <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>Copy</span>
-            <button onClick={() => copyToClipboard(content, "md")} title="Copy Markdown" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            <button onClick={() => copyToClipboard(content, "md")} title="Copy Markdown" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
               {copied === "md" ? "✓ Copied" : "MD"}
             </button>
-            <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
               {copied === "html" ? "✓ Copied" : "HTML"}
             </button>
           </div>
@@ -211,17 +229,20 @@ a { color: #3b82f6; }
           {/* File operations group */}
           <div className="flex items-center gap-1">
             <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>File</span>
-            <button onClick={downloadMd} title="Download .md" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            <button onClick={downloadMd} title="Download .md" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
               ↓ .md
             </button>
-            <button onClick={downloadHtml} title="Export HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            <button onClick={downloadHtml} title="Export HTML" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
               ↓ .html
             </button>
+            <button onClick={downloadPdf} title="Export PDF" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
+              ↓ PDF
+            </button>
             <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
-            <button onClick={() => fileInputRef.current?.click()} title="Upload .md file" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            <button onClick={() => fileInputRef.current?.click()} title="Upload .md file" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
               ↑ Upload
             </button>
-            <button onClick={handleReset} title="Reset editor" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            <button onClick={handleReset} title="Reset editor" className="rounded border border-gray-300 bg-gray-100 px-2 py-1 text-sm transition-colors hover:bg-gray-200 hover:text-primary dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
               ⟲ Reset
             </button>
           </div>

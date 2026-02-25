@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getHreflangAlternates } from "@/lib/metadata";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,6 +11,24 @@ export const metadata: Metadata = {
     "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
   metadataBase: new URL("https://markdownonline.com"),
   robots: { index: true, follow: true },
+  alternates: {
+    canonical: "/",
+    languages: getHreflangAlternates("/"),
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Markdown Online",
+    title: "Markdown Online - Free Markdown Editor",
+    description:
+      "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
+    url: "https://markdownonline.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Markdown Online - Free Markdown Editor",
+    description:
+      "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
+  },
 };
 
 export default function RootLayout({

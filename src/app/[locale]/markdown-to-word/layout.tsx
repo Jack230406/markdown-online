@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
 
-const PATHNAME = "/markdown-to-html";
+const PATHNAME = "/markdown-to-word";
 
 export async function generateMetadata({
   params,
@@ -10,25 +10,25 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: "Markdown to HTML Converter - Free Online Tool | Markdown Online",
+    title: "Markdown to Word Converter - Free Online Tool | Markdown Online",
     description:
-      "Convert Markdown to clean HTML code for free. Paste your Markdown, get the HTML output instantly. Copy or download the HTML file. No signup required.",
+      "Convert Markdown to Word (.docx) for free. No signup required. Export your Markdown documents to Word files instantly.",
     alternates: {
       canonical: getCanonicalUrl(PATHNAME, locale),
       languages: getHreflangAlternates(PATHNAME),
     },
     openGraph: {
-      title: "Markdown to HTML Converter - Free Online Tool",
+      title: "Markdown to Word Converter - Free Online Tool",
       description:
-        "Convert Markdown to clean HTML code for free. Copy or download the HTML output instantly.",
+        "Convert Markdown to Word (.docx) for free. Export your documents instantly.",
       type: "website",
       url: getCanonicalUrl(PATHNAME, locale),
     },
     twitter: {
       card: "summary_large_image",
-      title: "Markdown to HTML Converter - Free Online Tool",
+      title: "Markdown to Word Converter - Free Online Tool",
       description:
-        "Convert Markdown to clean HTML code for free. Copy or download the HTML output instantly.",
+        "Convert Markdown to Word (.docx) for free. Export your documents instantly.",
     },
   };
 }

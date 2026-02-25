@@ -17,7 +17,11 @@
   },
   "home": {
     "title": "Markdown Online - 免费在线 Markdown 编辑器",
-    "description": "免费在线 Markdown 编辑器，支持实时预览、语法高亮和多种导出格式，无需注册即可使用。"
+    "description": "免费在线 Markdown 编辑器，支持实时预览、语法高亮和多种导出格式，无需注册即可使用。",
+    "h1": "免费在线 Markdown 编辑器",
+    "seoTitle": "在线编写、预览和导出 Markdown",
+    "seoDesc": "Markdown Online 是一款免费的浏览器端 Markdown 编辑器，支持实时预览、自动保存，一键导出为 HTML、PDF 和 Word。无需注册、无需安装，打开即用。所有内容在本地浏览器中处理，完全保护你的隐私。",
+    "seoFeatures": "实时预览 • 自动保存 • 导出 HTML、PDF 和 Word • 深色模式 • 移动端适配 • 完全免费"
   },
   "editor": {
     "toolbar": {
@@ -164,6 +168,8 @@
     "resources": "资源",
     "legal": "法律信息",
     "copyright": "© 2026 Markdown Online. 保留所有权利。",
-    "tagline": "免费在线 Markdown 编辑器，支持实时预览和多种导出选项。"
+    "tagline": "免费在线 Markdown 编辑器，支持实时预览和多种导出选项。",
+    "about": "关于",
+    "contact": "联系我们"
   }
 }

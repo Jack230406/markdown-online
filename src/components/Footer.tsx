@@ -11,9 +11,9 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 text-sm sm:flex-row sm:justify-between" style={{ color: "var(--muted)" }}>
         <p>{t("copyright")}</p>
         <nav className="flex gap-4">
-          <Link href="/about" className="transition-colors hover:text-primary">{t("resources")}</Link>
+          <Link href="/about" className="transition-colors hover:text-primary">{t("about")}</Link>
           <Link href="/privacy" className="transition-colors hover:text-primary">{t("legal")}</Link>
-          <Link href="/contact" className="transition-colors hover:text-primary">{t("resources")}</Link>
+          <Link href="/contact" className="transition-colors hover:text-primary">{t("contact")}</Link>
         </nav>
       </div>
     </footer>

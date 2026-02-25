@@ -17,7 +17,11 @@
   },
   "home": {
     "title": "Markdown Online - Free Markdown Editor",
-    "description": "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required."
+    "description": "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
+    "h1": "Free Online Markdown Editor",
+    "seoTitle": "Write, Preview, and Export Markdown Online",
+    "seoDesc": "Markdown Online is a free, browser-based Markdown editor with real-time preview, auto-save, and one-click export to HTML, PDF, and Word. No signup, no installation — just start writing. Your content stays private because everything runs locally in your browser.",
+    "seoFeatures": "Live Preview • Auto-Save • Export to HTML, PDF & Word • Dark Mode • Mobile Friendly • 100% Free"
   },
   "editor": {
     "toolbar": {
@@ -164,6 +168,8 @@
     "resources": "Resources",
     "legal": "Legal",
     "copyright": "© 2026 Markdown Online. All rights reserved.",
-    "tagline": "Free online Markdown editor with live preview and export options."
+    "tagline": "Free online Markdown editor with live preview and export options.",
+    "about": "About",
+    "contact": "Contact"
   }
 }

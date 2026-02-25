@@ -17,7 +17,11 @@
   },
   "home": {
     "title": "Markdown Online - Editor de Markdown Gratuito",
-    "description": "Editor de Markdown en línea gratuito con vista previa en vivo, resaltado de sintaxis y opciones de exportación. Sin registro."
+    "description": "Editor de Markdown en línea gratuito con vista previa en vivo, resaltado de sintaxis y opciones de exportación. Sin registro.",
+    "h1": "Editor de Markdown Online Gratuito",
+    "seoTitle": "Escribe, Previsualiza y Exporta Markdown en Línea",
+    "seoDesc": "Markdown Online es un editor de Markdown gratuito basado en el navegador con vista previa en tiempo real, guardado automático y exportación con un clic a HTML, PDF y Word. Sin registro, sin instalación — solo empieza a escribir. Tu contenido permanece privado porque todo se ejecuta localmente en tu navegador.",
+    "seoFeatures": "Vista Previa en Vivo • Guardado Automático • Exportar a HTML, PDF y Word • Modo Oscuro • Compatible con Móviles • 100% Gratuito"
   },
   "editor": {
     "toolbar": {
@@ -164,6 +168,8 @@
     "resources": "Recursos",
     "legal": "Legal",
     "copyright": "© 2026 Markdown Online. Todos los derechos reservados.",
-    "tagline": "Editor de Markdown en línea gratuito con vista previa en vivo y opciones de exportación."
+    "tagline": "Editor de Markdown en línea gratuito con vista previa en vivo y opciones de exportación.",
+    "about": "Acerca de",
+    "contact": "Contacto"
   }
 }

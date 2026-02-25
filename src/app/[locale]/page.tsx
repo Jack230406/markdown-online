@@ -63,29 +63,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-4 py-4">
-      <div className="flex h-[calc(100vh-14rem)] flex-col rounded-lg border-2" style={{ borderColor: "var(--border)" }}>
-        {/* Ad placeholder - top banner */}
-        <div className="ad-placeholder flex items-center justify-center border-b py-2 text-xs" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-          {/* AdSense banner ad slot */}
+        <div className="h-[calc(100vh-14rem)] overflow-hidden rounded-lg border-2" style={{ borderColor: "var(--border)" }}>
+          <MarkdownEditor />
         </div>
-
-        <div className="flex flex-1 overflow-hidden">
-          {/* Ad placeholder - left sidebar */}
-          <div className="ad-placeholder hidden w-[160px] shrink-0 items-center justify-center border-r xl:flex" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-            {/* AdSense sidebar ad slot */}
-          </div>
-
-          {/* Main editor */}
-          <div className="flex-1 overflow-hidden">
-            <MarkdownEditor />
-          </div>
-
-          {/* Ad placeholder - right sidebar */}
-          <div className="ad-placeholder hidden w-[160px] shrink-0 items-center justify-center border-l xl:flex" style={{ borderColor: "var(--border)", color: "var(--muted)" }}>
-            {/* AdSense sidebar ad slot */}
-          </div>
-        </div>
-      </div>
       </div>
 
       {/* SEO content section */}

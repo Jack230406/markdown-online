@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Markdown Online - Free Markdown Editor",
+    default: "Markdown Online - Free Markdown Editor & Converter",
     template: "%s | Markdown Online",
   },
   description:
@@ -39,8 +39,10 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <head>
-        {/* TODO: Google AdSense */}
-        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossOrigin="anonymous" /> */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className="flex min-h-screen flex-col antialiased">
         {children}

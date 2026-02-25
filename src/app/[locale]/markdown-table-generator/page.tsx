@@ -12,8 +12,6 @@ export default function MarkdownTableGeneratorPage() {
   );
   const [align, setAlign] = useState<("left"|"center"|"right")[]>(() => Array(4).fill("left"));
   const [copied, setCopied] = useState(false);
-  const [hoverRow, setHoverRow] = useState<number | null>(null);
-  const [hoverCol, setHoverCol] = useState<number | null>(null);
 
   const updateCell = (r: number, c: number, val: string) => {
     setData(prev => { const n = prev.map(row => [...row]); n[r][c] = val; return n; });
@@ -94,46 +92,32 @@ export default function MarkdownTableGeneratorPage() {
       </div>
 
       {/* Column alignment + insert/delete buttons */}
-      <div className="mb-2 flex" style={{ paddingLeft: 40 }}>
+      <div className="mb-1 flex" style={{ paddingLeft: 40 }}>
         {Array.from({ length: cols }, (_, c) => (
-          <div
-            key={c}
-            className="relative flex-1"
-            style={{ minWidth: 80 }}
-            onMouseEnter={() => setHoverCol(c)}
-            onMouseLeave={() => setHoverCol(null)}
-          >
-            <div className="flex items-center justify-center gap-0.5">
+          <div key={c} className="flex flex-1 flex-col items-center gap-0.5" style={{ minWidth: 80 }}>
+            <button
+              onClick={() => cycleAlign(c)}
+              className="w-full rounded border px-1 py-1 text-center text-xs hover:bg-[var(--surface-alt)]"
+              style={{ borderColor: "var(--border)" }}
+              title={`Align: ${align[c]}`}
+            >
+              {alignIcon(align[c])} {align[c]}
+            </button>
+            <div className="flex gap-0.5">
               <button
-                onClick={() => cycleAlign(c)}
-                className="flex-1 rounded border px-1 py-1 text-center text-xs hover:bg-[var(--surface-alt)]"
+                onClick={() => insertColAt(c)}
+                className="rounded border px-1 py-0.5 text-[10px] hover:bg-[var(--surface-alt)]"
                 style={{ borderColor: "var(--border)" }}
-                title={`Align: ${align[c]}`}
-              >
-                {alignIcon(align[c])} {align[c]}
-              </button>
+                title="Insert column left"
+              >+Col</button>
+              <button
+                onClick={() => deleteColAt(c)}
+                className="rounded border px-1 py-0.5 text-[10px] hover:bg-red-100 hover:text-red-600"
+                style={{ borderColor: "var(--border)", opacity: cols <= 2 ? 0.4 : 1 }}
+                disabled={cols <= 2}
+                title="Delete this column"
+              >✕Col</button>
             </div>
-            {hoverCol === c && (
-              <div className="absolute left-1/2 top-full z-10 flex -translate-x-1/2 gap-1 pt-1">
-                <button
-                  onClick={() => insertColAt(c)}
-                  className="rounded border px-1.5 py-0.5 text-xs whitespace-nowrap hover:bg-[var(--surface-alt)]"
-                  style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                  title="Insert column left"
-                >
-                  ← +Col
-                </button>
-                <button
-                  onClick={() => deleteColAt(c)}
-                  className="rounded border px-1.5 py-0.5 text-xs whitespace-nowrap hover:bg-red-100 hover:text-red-600"
-                  style={{ borderColor: "var(--border)", background: "var(--surface)", opacity: cols <= 2 ? 0.4 : 1 }}
-                  title="Delete this column"
-                  disabled={cols <= 2}
-                >
-                  ✕ Col
-                </button>
-              </div>
-            )}
           </div>
         ))}
       </div>
@@ -143,35 +127,10 @@ export default function MarkdownTableGeneratorPage() {
         <table className="w-full border-collapse">
           <tbody>
             {data.map((row, r) => (
-              <tr
-                key={r}
-                onMouseEnter={() => setHoverRow(r)}
-                onMouseLeave={() => setHoverRow(null)}
-              >
-                {/* Row number + hover actions */}
-                <td className="relative w-[40px] border-none p-0 text-center align-middle select-none" style={{ minWidth: 40 }}>
+              <tr key={r}>
+                {/* Row number */}
+                <td className="w-[40px] border-none p-0 text-center align-middle select-none" style={{ minWidth: 40 }}>
                   <span className="text-xs" style={{ color: "var(--muted)" }}>{r + 1}</span>
-                  {hoverRow === r && (
-                    <div className="absolute right-full top-1/2 z-10 mr-1 flex -translate-y-1/2 flex-col gap-0.5">
-                      <button
-                        onClick={() => insertRowAt(r)}
-                        className="rounded border px-1 py-0.5 text-xs whitespace-nowrap hover:bg-[var(--surface-alt)]"
-                        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-                        title="Insert row above"
-                      >
-                        ↑ +Row
-                      </button>
-                      <button
-                        onClick={() => deleteRowAt(r)}
-                        className="rounded border px-1 py-0.5 text-xs whitespace-nowrap hover:bg-red-100 hover:text-red-600"
-                        style={{ borderColor: "var(--border)", background: "var(--surface)", opacity: rows <= 2 ? 0.4 : 1 }}
-                        title="Delete this row"
-                        disabled={rows <= 2}
-                      >
-                        ✕ Row
-                      </button>
-                    </div>
-                  )}
                 </td>
                 {row.map((cell, c) => (
                   <td key={c} className="border p-0" style={{ borderColor: "var(--border)" }}>
@@ -181,6 +140,24 @@ export default function MarkdownTableGeneratorPage() {
                       placeholder={r === 0 ? "Header" : "Cell"} />
                   </td>
                 ))}
+                {/* Row actions */}
+                <td className="border-none p-0 pl-1 align-middle select-none" style={{ minWidth: 70 }}>
+                  <div className="flex gap-0.5">
+                    <button
+                      onClick={() => insertRowAt(r)}
+                      className="rounded border px-1 py-0.5 text-[10px] hover:bg-[var(--surface-alt)]"
+                      style={{ borderColor: "var(--border)" }}
+                      title="Insert row above"
+                    >+Row</button>
+                    <button
+                      onClick={() => deleteRowAt(r)}
+                      className="rounded border px-1 py-0.5 text-[10px] hover:bg-red-100 hover:text-red-600"
+                      style={{ borderColor: "var(--border)", opacity: rows <= 2 ? 0.4 : 1 }}
+                      disabled={rows <= 2}
+                      title="Delete this row"
+                    >✕</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

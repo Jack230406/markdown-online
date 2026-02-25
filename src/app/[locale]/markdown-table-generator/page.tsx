@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
 
 export default function MarkdownTableGeneratorPage() {
   const [rows, setRows] = useState(4);
@@ -12,6 +12,9 @@ export default function MarkdownTableGeneratorPage() {
   );
   const [align, setAlign] = useState<("left"|"center"|"right")[]>(() => Array(4).fill("left"));
   const [copied, setCopied] = useState(false);
+  const [importText, setImportText] = useState("");
+  const [showImport, setShowImport] = useState(false);
+  const csvInputRef = useRef<HTMLInputElement>(null);
 
   const updateCell = (r: number, c: number, val: string) => {
     setData(prev => { const n = prev.map(row => [...row]); n[r][c] = val; return n; });
@@ -23,6 +26,63 @@ export default function MarkdownTableGeneratorPage() {
   const cycleAlign = (c: number) => {
     const order: ("left"|"center"|"right")[] = ["left", "center", "right"];
     setAlign(prev => { const n = [...prev]; n[c] = order[(order.indexOf(n[c]) + 1) % 3]; return n; });
+  };
+
+  // Parse CSV/TSV/pasted table text into 2D array
+  const parseTableText = (text: string): string[][] => {
+    const lines = text.trim().split(/\r?\n/).filter(l => l.trim());
+    if (!lines.length) return [];
+    // Detect delimiter: tab first, then comma, then pipe
+    const firstLine = lines[0];
+    let delimiter = "\t";
+    if (!firstLine.includes("\t")) {
+      delimiter = firstLine.includes("|") ? "|" : ",";
+    }
+    return lines
+      .filter(l => !/^[\s|:-]+$/.test(l)) // skip markdown separator rows
+      .map(l => {
+        let row = l.split(delimiter).map(c => c.trim());
+        // strip leading/trailing empty cells from pipe-delimited
+        if (delimiter === "|" && row[0] === "") row = row.slice(1);
+        if (delimiter === "|" && row[row.length - 1] === "") row = row.slice(0, -1);
+        return row;
+      });
+  };
+
+  const applyImport = (parsed: string[][]) => {
+    if (!parsed.length) return;
+    const maxCols = Math.max(...parsed.map(r => r.length));
+    const normalized = parsed.map(r => {
+      const padded = [...r];
+      while (padded.length < maxCols) padded.push("");
+      return padded;
+    });
+    setData(normalized);
+    setRows(normalized.length);
+    setCols(maxCols);
+    setAlign(Array(maxCols).fill("left"));
+    setShowImport(false);
+    setImportText("");
+  };
+
+  const handleImportPaste = () => {
+    const parsed = parseTableText(importText);
+    if (parsed.length) applyImport(parsed);
+  };
+
+  const handleCsvUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result;
+      if (typeof text === "string") {
+        const parsed = parseTableText(text);
+        if (parsed.length) applyImport(parsed);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
   };
 
   const insertRowAt = (r: number) => {
@@ -89,7 +149,36 @@ export default function MarkdownTableGeneratorPage() {
         <button onClick={copy} className="rounded-lg bg-blue-500 px-4 py-1 text-sm font-medium text-white hover:bg-blue-600">
           {copied ? "✓ Copied!" : "Copy Markdown"}
         </button>
+        <button onClick={() => setShowImport(!showImport)} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+          ↑ Import
+        </button>
+        <input ref={csvInputRef} type="file" accept=".csv,.tsv,.txt" onChange={handleCsvUpload} className="hidden" />
+        <button onClick={() => csvInputRef.current?.click()} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+          ↑ Upload CSV
+        </button>
       </div>
+
+      {/* Import panel */}
+      {showImport && (
+        <div className="mb-4 rounded-lg border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+          <label className="mb-1 block text-sm font-medium">Paste table data (CSV, TSV, or copied from Excel/Sheets)</label>
+          <textarea
+            value={importText}
+            onChange={(e) => setImportText(e.target.value)}
+            className="mb-2 w-full rounded border p-2 text-sm outline-none"
+            style={{ borderColor: "var(--border)", background: "var(--background)", color: "var(--foreground)", minHeight: 100 }}
+            placeholder={"Name\tAge\tCity\nAlice\t30\tNew York\nBob\t25\tLondon"}
+          />
+          <div className="flex gap-2">
+            <button onClick={handleImportPaste} className="rounded-lg bg-blue-500 px-4 py-1 text-sm font-medium text-white hover:bg-blue-600">
+              Import
+            </button>
+            <button onClick={() => { setShowImport(false); setImportText(""); }} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Column alignment + insert/delete buttons */}
       <div className="mb-1 flex" style={{ paddingLeft: 40 }}>

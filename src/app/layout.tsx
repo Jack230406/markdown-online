@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description:
     "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
-  metadataBase: new URL("https://markdownonline.com"),
+  metadataBase: new URL("https://markdownonline.app"),
   robots: { index: true, follow: true },
   alternates: {
     canonical: "/",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "Markdown Online - Free Markdown Editor",
     description:
       "Free online Markdown editor with live preview, syntax highlighting, and export options. No signup required.",
-    url: "https://markdownonline.com",
+    url: "https://markdownonline.app",
   },
   twitter: {
     card: "summary_large_image",

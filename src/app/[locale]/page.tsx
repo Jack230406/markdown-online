@@ -31,7 +31,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Markdown Online",
-    url: "https://markdownonline.com",
+    url: "https://markdownonline.app",
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Any",
     offers: {

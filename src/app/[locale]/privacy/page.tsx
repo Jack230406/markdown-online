@@ -21,7 +21,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         <p>
           At Markdown Online (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), we are committed
           to protecting your privacy. This Privacy Policy explains how we collect, use, and
-          safeguard information when you visit our website at markdownonline.com (the
+          safeguard information when you visit our website at markdownonline.app (the
           &quot;Site&quot;). By using the Site, you agree to the practices described in this policy.
         </p>
 

@@ -1,4 +1,4 @@
-const BASE_URL = "https://markdownonline.com";
+const BASE_URL = "https://markdownonline.app";
 
 /**
  * Build locale-aware canonical URL.

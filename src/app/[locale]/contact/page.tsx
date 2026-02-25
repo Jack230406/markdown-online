@@ -27,10 +27,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           The best way to reach us is by email. Send your message
           to{" "}
           <a
-            href="mailto:contact@markdownonline.com"
+            href="mailto:info@markdownonline.app"
             className="text-primary underline"
           >
-            contact@markdownonline.com
+            info@markdownonline.app
           </a>{" "}
           and we will get back to you as soon as possible. Please include a clear subject line so
           we can route your message to the right person on our team.

@@ -8,10 +8,20 @@ import { Link } from "@/i18n/navigation";
 export function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const t = useTranslations("nav");
   const locale = useLocale();
 
   useEffect(() => setMounted(true), []);
+
+  const toolLinks = [
+    { href: "/markdown-to-html" as const, label: t("toHtml") },
+    { href: "/markdown-to-pdf" as const, label: t("toPdf") },
+    { href: "/markdown-to-word" as const, label: t("toWord") },
+    { href: "/markdown-viewer" as const, label: t("viewer") },
+    { href: "/markdown-cheat-sheet" as const, label: t("cheatSheet") },
+    { href: "/markdown-table-generator" as const, label: t("tableGenerator") },
+  ];
 
   const locales = [
     { code: "en", label: "EN", href: "/" },
@@ -38,10 +48,10 @@ export function Header() {
             <Link href="/" className="transition-colors hover:text-primary">{t("editor")}</Link>
             <div className="group relative">
               <button className="transition-colors hover:text-primary">{t("tools")} ▾</button>
-              <div className="invisible absolute left-0 top-full z-50 min-w-[200px] rounded-lg border py-1 shadow-lg group-hover:visible" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-                <Link href="/markdown-to-html" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("toHtml")}</Link>
-                <Link href="/markdown-to-pdf" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("toPdf")}</Link>
-                <Link href="/markdown-to-word" className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("toWord")}</Link>
+              <div className="invisible absolute left-0 top-full z-50 min-w-[220px] rounded-lg border py-1 shadow-lg group-hover:visible" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+                {toolLinks.map((tool) => (
+                  <Link key={tool.href} href={tool.href} className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{tool.label}</Link>
+                ))}
               </div>
             </div>
             <Link href="/about" className="transition-colors hover:text-primary">{t("about")}</Link>
@@ -85,10 +95,51 @@ export function Header() {
             </button>
           )}
           <nav className="flex items-center gap-2 md:hidden">
-            <Link href="/about" className="rounded-lg p-2 text-sm transition-colors hover:bg-[var(--surface-alt)]">{t("about")}</Link>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="rounded-lg p-2 transition-colors hover:bg-[var(--surface-alt)]"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6L6 18" />
+                  <path d="M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 12h18" />
+                  <path d="M3 6h18" />
+                  <path d="M3 18h18" />
+                </svg>
+              )}
+            </button>
           </nav>
         </div>
       </div>
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="border-t px-4 py-3 md:hidden" style={{ borderColor: "var(--border)" }}>
+          <nav className="flex flex-col gap-1 text-sm" style={{ color: "var(--muted)" }}>
+            <Link href="/" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              {t("editor")}
+            </Link>
+            <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wide opacity-60">
+              {t("tools")}
+            </div>
+            {toolLinks.map((tool) => (
+              <Link key={tool.href} href={tool.href} onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 pl-6 transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+                {tool.label}
+              </Link>
+            ))}
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              {t("about")}
+            </Link>
+            <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-lg px-3 py-2 transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              {t("contact")}
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

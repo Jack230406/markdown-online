@@ -10,7 +10,10 @@
     "contact": "Contact",
     "toHtml": "Markdown to HTML",
     "toPdf": "Markdown to PDF",
-    "toWord": "Markdown to Word"
+    "toWord": "Markdown to Word",
+    "viewer": "Markdown Viewer",
+    "cheatSheet": "Cheat Sheet",
+    "tableGenerator": "Table Generator"
   },
   "home": {
     "title": "Markdown Online - Free Markdown Editor",

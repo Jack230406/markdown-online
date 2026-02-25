@@ -10,7 +10,10 @@
     "contact": "联系我们",
     "toHtml": "Markdown 转 HTML",
     "toPdf": "Markdown 转 PDF",
-    "toWord": "Markdown 转 Word"
+    "toWord": "Markdown 转 Word",
+    "viewer": "Markdown 预览器",
+    "cheatSheet": "速查表",
+    "tableGenerator": "表格生成器"
   },
   "home": {
     "title": "Markdown Online - 免费在线 Markdown 编辑器",

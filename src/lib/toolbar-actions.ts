@@ -15,6 +15,11 @@ export const toolbarActions: ToolbarAction[] = [
   { label: "Code", icon: "<>", prefix: "`", suffix: "`" },
   { label: "List", icon: "•", prefix: "- ", suffix: "", block: true },
   { label: "Quote", icon: '"', prefix: "> ", suffix: "", block: true },
+  { label: "Strikethrough", icon: "S̶", prefix: "~~", suffix: "~~" },
+  { label: "Ordered List", icon: "1.", prefix: "1. ", suffix: "", block: true },
+  { label: "Task List", icon: "☑", prefix: "- [ ] ", suffix: "", block: true },
+  { label: "Horizontal Rule", icon: "―", prefix: "\n---\n", suffix: "", block: false },
+  { label: "Table", icon: "⊞", prefix: "\n| Header | Header |\n|--------|--------|\n| Cell   | Cell   |\n", suffix: "", block: false },
 ];
 
 export function insertMarkdown(

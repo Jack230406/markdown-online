@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations("home");
   return {
-    title: t("title"),
+    title: { absolute: t("title") },
     description: t("description"),
     alternates: {
       canonical: getCanonicalUrl("/", locale),

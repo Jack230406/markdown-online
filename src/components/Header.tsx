@@ -13,8 +13,13 @@ export function Header() {
 
   useEffect(() => setMounted(true), []);
 
-  const otherLocale = locale === "en" ? "es" : "en";
-  const localeLabel = locale === "en" ? "ES" : "EN";
+  const locales = [
+    { code: "en", label: "EN", href: "/" },
+    { code: "es", label: "ES", href: "/es/" },
+    { code: "zh", label: "中文", href: "/zh/" },
+  ] as const;
+
+  const otherLocales = locales.filter((l) => l.code !== locale);
 
   return (
     <header className="border-b" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
@@ -45,12 +50,22 @@ export function Header() {
         </div>
         <div className="flex items-center gap-3">
           {/* Language switcher */}
-          <a
-            href={otherLocale === "en" ? "/" : `/${otherLocale}/`}
-            className="rounded-lg px-2 py-1 text-xs font-medium transition-colors hover:bg-[var(--surface-alt)]"
-          >
-            {localeLabel}
-          </a>
+          <div className="group relative">
+            <button className="rounded-lg px-2 py-1 text-xs font-medium transition-colors hover:bg-[var(--surface-alt)]">
+              {locales.find((l) => l.code === locale)?.label ?? "EN"} ▾
+            </button>
+            <div className="invisible absolute right-0 top-full z-50 min-w-[80px] rounded-lg border py-1 shadow-lg group-hover:visible" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+              {otherLocales.map((l) => (
+                <a
+                  key={l.code}
+                  href={l.href}
+                  className="block px-4 py-2 text-xs font-medium transition-colors hover:bg-[var(--surface-alt)]"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

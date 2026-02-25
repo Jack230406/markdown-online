@@ -4,6 +4,7 @@
     <loc>https://markdownonline.com/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,6 +12,15 @@
     <loc>https://markdownonline.com/es/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -18,6 +28,7 @@
     <loc>https://markdownonline.com/markdown-to-html/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-html/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-html/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -25,6 +36,15 @@
     <loc>https://markdownonline.com/es/markdown-to-html/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-html/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-html/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/zh/markdown-to-html/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-html/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -32,6 +52,7 @@
     <loc>https://markdownonline.com/markdown-to-pdf/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-pdf/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-pdf/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -39,6 +60,15 @@
     <loc>https://markdownonline.com/es/markdown-to-pdf/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-pdf/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-pdf/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/zh/markdown-to-pdf/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-pdf/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -46,6 +76,7 @@
     <loc>https://markdownonline.com/markdown-to-word/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-word/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-word/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -53,6 +84,15 @@
     <loc>https://markdownonline.com/es/markdown-to-word/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-word/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-word/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://markdownonline.com/zh/markdown-to-word/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.com/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.com/es/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.com/zh/markdown-to-word/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

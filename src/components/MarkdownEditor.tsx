@@ -191,12 +191,12 @@ a { color: #3b82f6; }
   return (
     <div className="flex h-full flex-col">
       {/* Toolbar */}
-      <div
-        className="flex flex-wrap items-center gap-1 border-b px-3 py-2"
-        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-      >
-        {/* Formatting buttons */}
-        <div className="flex items-center gap-1">
+      <div style={{ background: "var(--surface)" }}>
+        {/* Row 1: Formatting buttons */}
+        <div
+          className="flex flex-wrap items-center gap-1 border-b px-3 py-1.5"
+          style={{ borderColor: "var(--border)" }}
+        >
           {toolbarActions.map((action, i) => (
             <button
               key={action.label}
@@ -210,58 +210,60 @@ a { color: #3b82f6; }
           ))}
         </div>
 
-        <div className="mx-2 h-5 w-px" style={{ background: "var(--border)" }} />
+        {/* Row 2: File operations + Status bar */}
+        <div
+          className="flex flex-wrap items-center gap-1 border-b px-3 py-1.5"
+          style={{ borderColor: "var(--border)" }}
+        >
+          {/* Copy group */}
+          <div className="flex items-center gap-1">
+            <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>Copy</span>
+            <button onClick={() => copyToClipboard(content, "md")} title="Copy Markdown" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              {copied === "md" ? "✓ Copied" : "MD"}
+            </button>
+            <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              {copied === "html" ? "✓ Copied" : "HTML"}
+            </button>
+          </div>
 
-        {/* Copy group */}
-        <div className="flex items-center gap-1">
-          <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>Copy</span>
-          <button onClick={() => copyToClipboard(content, "md")} title="Copy Markdown" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            {copied === "md" ? "✓ Copied" : "MD"}
-          </button>
-          <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            {copied === "html" ? "✓ Copied" : "HTML"}
-          </button>
-        </div>
+          {/* File operations group */}
+          <div className="flex items-center gap-1">
+            <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>File</span>
+            <button onClick={downloadMd} title="Download .md" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              ↓ .md
+            </button>
+            <button onClick={downloadHtml} title="Export HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              ↓ .html
+            </button>
+            <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
+            <button onClick={() => fileInputRef.current?.click()} title="Upload .md file" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              ↑ Upload
+            </button>
+            <button onClick={handleReset} title="Reset editor" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+              ⟲ Reset
+            </button>
+          </div>
 
-        <div className="mx-2 h-5 w-px" style={{ background: "var(--border)" }} />
-
-        {/* File operations group */}
-        <div className="flex items-center gap-1">
-          <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>File</span>
-          <button onClick={downloadMd} title="Download .md" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            ↓ .md
-          </button>
-          <button onClick={downloadHtml} title="Export HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            ↓ .html
-          </button>
-          <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
-          <button onClick={() => fileInputRef.current?.click()} title="Upload .md file" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            ↑ Upload
-          </button>
-          <button onClick={handleReset} title="Reset editor" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            ⟲ Reset
-          </button>
-        </div>
-
-        {/* Word count & Save status */}
-        <div className="ml-auto flex items-center gap-3 text-xs" style={{ color: "var(--muted)" }}>
-          <label className="flex cursor-pointer items-center gap-1 select-none">
-            <input type="checkbox" checked={syncScroll} onChange={(e) => setSyncScroll(e.target.checked)} className="accent-blue-500" />
-            Sync Scroll
-          </label>
-          <span>{wordCount} words · {charCount} chars</span>
-          {saveStatus === "saved" && (
-            <span className="flex items-center gap-1">
-              <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
-              Saved
-            </span>
-          )}
-          {saveStatus === "saving" && (
-            <span className="flex items-center gap-1">
-              <span className="inline-block h-2 w-2 rounded-full bg-yellow-500" />
-              Saving...
-            </span>
-          )}
+          {/* Status bar */}
+          <div className="ml-auto flex items-center gap-3 text-xs" style={{ color: "var(--muted)" }}>
+            <label className="flex cursor-pointer items-center gap-1 select-none">
+              <input type="checkbox" checked={syncScroll} onChange={(e) => setSyncScroll(e.target.checked)} className="accent-blue-500" />
+              Sync Scroll
+            </label>
+            <span>{wordCount} words · {charCount} chars</span>
+            {saveStatus === "saved" && (
+              <span className="flex items-center gap-1">
+                <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
+                Saved
+              </span>
+            )}
+            {saveStatus === "saving" && (
+              <span className="flex items-center gap-1">
+                <span className="inline-block h-2 w-2 rounded-full bg-yellow-500" />
+                Saving...
+              </span>
+            )}
+          </div>
         </div>
       </div>
 

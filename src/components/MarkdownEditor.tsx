@@ -13,6 +13,7 @@ export function MarkdownEditor() {
   const [activeTab, setActiveTab] = useState<"editor" | "preview">("editor");
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "idle">("idle");
   const [copied, setCopied] = useState<string | null>(null);
+  const [syncScroll, setSyncScroll] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -88,7 +89,7 @@ export function MarkdownEditor() {
 
   // Sync scroll between editor and preview
   const handleEditorScroll = useCallback(() => {
-    if (scrollingRef.current === "preview") return;
+    if (!syncScroll || scrollingRef.current === "preview") return;
     scrollingRef.current = "editor";
     const textarea = textareaRef.current;
     const preview = previewRef.current;
@@ -96,10 +97,10 @@ export function MarkdownEditor() {
     const ratio = textarea.scrollTop / (textarea.scrollHeight - textarea.clientHeight || 1);
     preview.scrollTop = ratio * (preview.scrollHeight - preview.clientHeight);
     requestAnimationFrame(() => { scrollingRef.current = null; });
-  }, []);
+  }, [syncScroll]);
 
   const handlePreviewScroll = useCallback(() => {
-    if (scrollingRef.current === "editor") return;
+    if (!syncScroll || scrollingRef.current === "editor") return;
     scrollingRef.current = "preview";
     const textarea = textareaRef.current;
     const preview = previewRef.current;
@@ -107,7 +108,7 @@ export function MarkdownEditor() {
     const ratio = preview.scrollTop / (preview.scrollHeight - preview.clientHeight || 1);
     textarea.scrollTop = ratio * (textarea.scrollHeight - textarea.clientHeight);
     requestAnimationFrame(() => { scrollingRef.current = null; });
-  }, []);
+  }, [syncScroll]);
 
   // Export functions
   const downloadFile = useCallback(
@@ -242,6 +243,10 @@ a { color: #3b82f6; }
 
         {/* Word count & Save status */}
         <div className="ml-auto flex items-center gap-3 text-xs" style={{ color: "var(--muted)" }}>
+          <label className="flex cursor-pointer items-center gap-1 select-none">
+            <input type="checkbox" checked={syncScroll} onChange={(e) => setSyncScroll(e.target.checked)} className="accent-blue-500" />
+            Sync Scroll
+          </label>
           <span>{wordCount} words · {charCount} chars</span>
           {saveStatus === "saved" && (
             <span className="flex items-center gap-1">

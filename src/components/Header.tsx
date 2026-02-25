@@ -36,11 +36,11 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" role="img" aria-label="Markdown Online logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-label="Markdown Online logo">
               <title>Markdown Online</title>
-              <path d="M2 3h20v18H2z" />
-              <path d="M6 9l3 3-3 3" />
-              <path d="M13 15h5" />
+              <rect x="1" y="2" width="22" height="20" rx="3" fill="#ffffff" stroke="#3b82f6" strokeWidth="1.5"/>
+              <polyline points="6,9 9,12 6,15" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="12" y1="15" x2="18" y2="15" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round"/>
             </svg>
             <span className="text-primary">Markdown</span>
             <span>Online</span>

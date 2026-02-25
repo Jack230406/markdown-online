@@ -12,6 +12,8 @@ export default function MarkdownTableGeneratorPage() {
   );
   const [align, setAlign] = useState<("left"|"center"|"right")[]>(() => Array(4).fill("left"));
   const [copied, setCopied] = useState(false);
+  const [hoverRow, setHoverRow] = useState<number | null>(null);
+  const [hoverCol, setHoverCol] = useState<number | null>(null);
 
   const updateCell = (r: number, c: number, val: string) => {
     setData(prev => { const n = prev.map(row => [...row]); n[r][c] = val; return n; });
@@ -23,6 +25,27 @@ export default function MarkdownTableGeneratorPage() {
   const cycleAlign = (c: number) => {
     const order: ("left"|"center"|"right")[] = ["left", "center", "right"];
     setAlign(prev => { const n = [...prev]; n[c] = order[(order.indexOf(n[c]) + 1) % 3]; return n; });
+  };
+
+  const insertRowAt = (r: number) => {
+    setRows(prev => prev + 1);
+    setData(prev => [...prev.slice(0, r), Array(cols).fill(""), ...prev.slice(r)]);
+  };
+  const deleteRowAt = (r: number) => {
+    if (rows <= 2) return;
+    setRows(prev => prev - 1);
+    setData(prev => prev.filter((_, i) => i !== r));
+  };
+  const insertColAt = (c: number) => {
+    setCols(prev => prev + 1);
+    setData(prev => prev.map(row => [...row.slice(0, c), "", ...row.slice(c)]));
+    setAlign(prev => [...prev.slice(0, c), "left", ...prev.slice(c)]);
+  };
+  const deleteColAt = (c: number) => {
+    if (cols <= 2) return;
+    setCols(prev => prev - 1);
+    setData(prev => prev.map(row => row.filter((_, i) => i !== c)));
+    setAlign(prev => prev.filter((_, i) => i !== c));
   };
 
   const markdown = useMemo(() => {
@@ -70,12 +93,48 @@ export default function MarkdownTableGeneratorPage() {
         </button>
       </div>
 
-      {/* Alignment buttons */}
-      <div className="mb-2 flex gap-1">
+      {/* Column alignment + insert/delete buttons */}
+      <div className="mb-2 flex" style={{ paddingLeft: 40 }}>
         {Array.from({ length: cols }, (_, c) => (
-          <button key={c} onClick={() => cycleAlign(c)} className="flex-1 rounded border px-1 py-1 text-center text-xs hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)", minWidth: 60 }} title={`Align: ${align[c]}`}>
-            {alignIcon(align[c])} {align[c]}
-          </button>
+          <div
+            key={c}
+            className="relative flex-1"
+            style={{ minWidth: 80 }}
+            onMouseEnter={() => setHoverCol(c)}
+            onMouseLeave={() => setHoverCol(null)}
+          >
+            <div className="flex items-center justify-center gap-0.5">
+              <button
+                onClick={() => cycleAlign(c)}
+                className="flex-1 rounded border px-1 py-1 text-center text-xs hover:bg-[var(--surface-alt)]"
+                style={{ borderColor: "var(--border)" }}
+                title={`Align: ${align[c]}`}
+              >
+                {alignIcon(align[c])} {align[c]}
+              </button>
+            </div>
+            {hoverCol === c && (
+              <div className="absolute left-1/2 top-full z-10 flex -translate-x-1/2 gap-1 pt-1">
+                <button
+                  onClick={() => insertColAt(c)}
+                  className="rounded border px-1.5 py-0.5 text-xs whitespace-nowrap hover:bg-[var(--surface-alt)]"
+                  style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+                  title="Insert column left"
+                >
+                  ← +Col
+                </button>
+                <button
+                  onClick={() => deleteColAt(c)}
+                  className="rounded border px-1.5 py-0.5 text-xs whitespace-nowrap hover:bg-red-100 hover:text-red-600"
+                  style={{ borderColor: "var(--border)", background: "var(--surface)", opacity: cols <= 2 ? 0.4 : 1 }}
+                  title="Delete this column"
+                  disabled={cols <= 2}
+                >
+                  ✕ Col
+                </button>
+              </div>
+            )}
+          </div>
         ))}
       </div>
 
@@ -84,12 +143,41 @@ export default function MarkdownTableGeneratorPage() {
         <table className="w-full border-collapse">
           <tbody>
             {data.map((row, r) => (
-              <tr key={r}>
+              <tr
+                key={r}
+                onMouseEnter={() => setHoverRow(r)}
+                onMouseLeave={() => setHoverRow(null)}
+              >
+                {/* Row number + hover actions */}
+                <td className="relative w-[40px] border-none p-0 text-center align-middle select-none" style={{ minWidth: 40 }}>
+                  <span className="text-xs" style={{ color: "var(--muted)" }}>{r + 1}</span>
+                  {hoverRow === r && (
+                    <div className="absolute right-full top-1/2 z-10 mr-1 flex -translate-y-1/2 flex-col gap-0.5">
+                      <button
+                        onClick={() => insertRowAt(r)}
+                        className="rounded border px-1 py-0.5 text-xs whitespace-nowrap hover:bg-[var(--surface-alt)]"
+                        style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+                        title="Insert row above"
+                      >
+                        ↑ +Row
+                      </button>
+                      <button
+                        onClick={() => deleteRowAt(r)}
+                        className="rounded border px-1 py-0.5 text-xs whitespace-nowrap hover:bg-red-100 hover:text-red-600"
+                        style={{ borderColor: "var(--border)", background: "var(--surface)", opacity: rows <= 2 ? 0.4 : 1 }}
+                        title="Delete this row"
+                        disabled={rows <= 2}
+                      >
+                        ✕ Row
+                      </button>
+                    </div>
+                  )}
+                </td>
                 {row.map((cell, c) => (
                   <td key={c} className="border p-0" style={{ borderColor: "var(--border)" }}>
                     <input type="text" value={cell} onChange={(e) => updateCell(r, c, e.target.value)}
                       className={`w-full border-none px-2 py-1.5 text-sm outline-none ${r === 0 ? "font-bold" : ""}`}
-                      style={{ background: r === 0 ? "var(--surface-alt)" : "var(--surface)", color: "var(--foreground)", minWidth: 80 }}
+                      style={{ background: r === 0 ? "var(--surface-alt)" : "var(--surface)", color: "var(--foreground)", minWidth: 80, textAlign: align[c] }}
                       placeholder={r === 0 ? "Header" : "Cell"} />
                   </td>
                 ))}

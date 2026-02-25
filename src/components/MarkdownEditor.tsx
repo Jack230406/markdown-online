@@ -14,6 +14,7 @@ export function MarkdownEditor() {
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "idle">("idle");
   const [copied, setCopied] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
   const md = useMemo(
@@ -136,6 +137,31 @@ a { color: #3b82f6; }
     []
   );
 
+  // Upload .md file
+  const handleFileUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target?.result;
+        if (typeof text === "string") setContent(text);
+      };
+      reader.readAsText(file);
+      e.target.value = "";
+    },
+    []
+  );
+
+  // Reset editor
+  const handleReset = useCallback(() => {
+    if (window.confirm("Clear the editor and start fresh?")) {
+      setContent(DEFAULT_MARKDOWN);
+      localStorage.removeItem(STORAGE_KEY);
+      setSaveStatus("idle");
+    }
+  }, []);
+
   return (
     <div className="flex h-full flex-col">
       {/* Toolbar */}
@@ -173,6 +199,19 @@ a { color: #3b82f6; }
           </button>
           <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
             {copied === "html" ? "Copied!" : "Copy HTML"}
+          </button>
+        </div>
+
+        <div className="mx-2 h-5 w-px" style={{ background: "var(--border)" }} />
+
+        {/* Upload & Reset */}
+        <div className="flex items-center gap-1">
+          <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
+          <button onClick={() => fileInputRef.current?.click()} title="Upload .md file" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            ↑ Upload
+          </button>
+          <button onClick={handleReset} title="Reset editor" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            ⟲ Reset
           </button>
         </div>
 

@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
@@ -11,6 +11,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = useTranslations("nav");
   const locale = useLocale();
+  const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
 
@@ -24,9 +25,9 @@ export function Header() {
   ];
 
   const locales = [
-    { code: "en", label: "EN", href: "/" },
-    { code: "es", label: "ES", href: "/es/" },
-    { code: "zh", label: "中文", href: "/zh/" },
+    { code: "en", label: "EN" },
+    { code: "es", label: "ES" },
+    { code: "zh", label: "中文" },
   ] as const;
 
   const otherLocales = locales.filter((l) => l.code !== locale);
@@ -67,13 +68,14 @@ export function Header() {
             </button>
             <div className="invisible absolute right-0 top-full z-50 min-w-[80px] rounded-lg border py-1 shadow-lg group-hover:visible" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
               {otherLocales.map((l) => (
-                <a
+                <Link
                   key={l.code}
-                  href={l.href}
+                  href={pathname}
+                  locale={l.code}
                   className="block px-4 py-2 text-xs font-medium transition-colors hover:bg-[var(--surface-alt)]"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

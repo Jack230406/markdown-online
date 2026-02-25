@@ -157,10 +157,32 @@ a { color: #3b82f6; }
   const downloadPdf = useCallback(async () => {
     const html2pdf = (await import("html2pdf.js")).default;
     const container = document.createElement("div");
-    container.innerHTML = renderedHtml;
+    container.innerHTML = `<style>
+h1 { font-size: 2em; font-weight: bold; margin: 0.67em 0; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+h2 { font-size: 1.5em; font-weight: bold; margin: 0.83em 0; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+h3 { font-size: 1.25em; font-weight: bold; margin: 1em 0; }
+h4 { font-size: 1em; font-weight: bold; }
+p { margin: 1em 0; line-height: 1.7; }
+code { background: #f4f4f5; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; font-family: monospace; }
+pre { background: #f4f4f5; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 1em 0; }
+pre code { background: none; padding: 0; }
+blockquote { border-left: 4px solid #ddd; padding-left: 16px; margin: 1em 0; color: #666; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+th { background: #f4f4f5; font-weight: bold; }
+ul, ol { margin: 1em 0; padding-left: 2em; }
+li { margin: 0.25em 0; }
+a { color: #3b82f6; text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+hr { border: none; border-top: 1px solid #ddd; margin: 2em 0; }
+strong { font-weight: bold; }
+em { font-style: italic; }
+</style>` + renderedHtml;
     container.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     container.style.lineHeight = "1.7";
     container.style.color = "#1a1a2e";
+    container.style.padding = "20px";
+    container.style.maxWidth = "800px";
     html2pdf()
       .set({
         margin: 15,

@@ -212,26 +212,28 @@ a { color: #3b82f6; }
 
         <div className="mx-2 h-5 w-px" style={{ background: "var(--border)" }} />
 
-        {/* Export buttons */}
+        {/* Copy group */}
         <div className="flex items-center gap-1">
+          <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>Copy</span>
+          <button onClick={() => copyToClipboard(content, "md")} title="Copy Markdown" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            {copied === "md" ? "✓ Copied" : "MD"}
+          </button>
+          <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
+            {copied === "html" ? "✓ Copied" : "HTML"}
+          </button>
+        </div>
+
+        <div className="mx-2 h-5 w-px" style={{ background: "var(--border)" }} />
+
+        {/* File operations group */}
+        <div className="flex items-center gap-1">
+          <span className="mr-1 text-[10px] uppercase tracking-wide" style={{ color: "var(--muted)" }}>File</span>
           <button onClick={downloadMd} title="Download .md" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
             ↓ .md
           </button>
           <button onClick={downloadHtml} title="Export HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
             ↓ .html
           </button>
-          <button onClick={() => copyToClipboard(content, "md")} title="Copy Markdown" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            {copied === "md" ? "Copied!" : "Copy MD"}
-          </button>
-          <button onClick={() => copyToClipboard(renderedHtml, "html")} title="Copy HTML" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
-            {copied === "html" ? "Copied!" : "Copy HTML"}
-          </button>
-        </div>
-
-        <div className="mx-2 h-5 w-px" style={{ background: "var(--border)" }} />
-
-        {/* Upload & Reset */}
-        <div className="flex items-center gap-1">
           <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
           <button onClick={() => fileInputRef.current?.click()} title="Upload .md file" className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)] hover:text-primary">
             ↑ Upload

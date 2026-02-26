@@ -1,129 +1,268 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://markdownonline.app/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://markdownonline.app/es/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://markdownonline.app/zh/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/markdown-to-html/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-html/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-html/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-html/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/es/markdown-to-html/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-html/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-html/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-html/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/zh/markdown-to-html/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-html/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-html/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-html/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/markdown-to-pdf/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-pdf/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-pdf/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-pdf/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/es/markdown-to-pdf/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-pdf/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-pdf/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-pdf/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/zh/markdown-to-pdf/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-pdf/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-pdf/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-pdf/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/markdown-to-word/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-word/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-word/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-word/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/es/markdown-to-word/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-word/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-word/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-word/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://markdownonline.app/zh/markdown-to-word/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-word/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-word/" />
-    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-word/" />
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://markdownonline.app/about/</loc>
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-02-26</lastmod>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/about/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/about/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/about/" />
   </url>
   <url>
-    <loc>https://markdownonline.app/privacy/</loc>
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://markdownonline.app/es/about/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/about/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/about/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/about/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/about/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/about/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/about/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/about/" />
   </url>
   <url>
     <loc>https://markdownonline.app/contact/</loc>
-    <lastmod>2026-02-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/contact/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/contact/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/contact/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/contact/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/contact/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/contact/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/contact/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/contact/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/contact/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/contact/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/contact/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/markdown-cheat-sheet/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-cheat-sheet/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-cheat-sheet/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-cheat-sheet/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/markdown-cheat-sheet/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-cheat-sheet/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-cheat-sheet/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-cheat-sheet/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/markdown-cheat-sheet/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-cheat-sheet/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-cheat-sheet/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-cheat-sheet/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/markdown-table-generator/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-table-generator/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-table-generator/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-table-generator/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/markdown-table-generator/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-table-generator/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-table-generator/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-table-generator/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/markdown-table-generator/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-table-generator/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-table-generator/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-table-generator/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/markdown-to-html/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-html/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/markdown-to-html/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-html/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/markdown-to-html/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-html/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-html/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/markdown-to-pdf/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-pdf/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/markdown-to-pdf/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-pdf/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/markdown-to-pdf/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-pdf/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-pdf/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/markdown-to-word/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-word/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/markdown-to-word/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-word/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/markdown-to-word/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-to-word/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-to-word/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/markdown-viewer/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-viewer/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-viewer/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-viewer/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/markdown-viewer/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-viewer/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-viewer/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-viewer/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/markdown-viewer/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/markdown-viewer/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/markdown-viewer/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/markdown-viewer/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/privacy/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/privacy/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/privacy/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/privacy/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/privacy/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/privacy/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/privacy/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/privacy/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/privacy/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/privacy/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/privacy/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/privacy/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/terms/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/terms/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/terms/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/terms/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/terms/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/terms/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/terms/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/terms/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/terms/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/terms/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/terms/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/terms/" />
   </url>
 </urlset>

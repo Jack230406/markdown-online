@@ -320,47 +320,28 @@ em { font-style: italic; }
         </div>
       </div>
 
-      <div className="grid gap-4 border-b px-4 py-4 lg:grid-cols-[1.4fr_0.8fr]" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-        <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide">Privacy at a glance</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            {[
-              ["Everything stays in your browser", "Editing, preview, and export all run locally on your device."],
-              ["Autosave uses local storage", "Drafts are saved in your own browser storage so you can come back later."],
-              ["No account or upload required", "You can write and export without signing up or sending content to a server."],
-              ["Exports happen client-side", "HTML, PDF, and Word generation run in-browser with your current content."],
-            ].map(([title, desc]) => (
-              <div key={title} className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--background)" }}>
-                <h3 className="text-sm font-semibold">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{desc}</p>
-              </div>
-            ))}
-          </div>
+      <div className="border-b px-4 py-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--background)" }}>
+          <h2 className="text-sm font-semibold uppercase tracking-wide">Outline</h2>
+          {outline.length === 0 ? (
+            <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+              Add headings like #, ##, or ### to generate a clickable outline for longer documents.
+            </p>
+          ) : (
+            <div className="mt-3 space-y-2">
+              {outline.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => jumpToHeading(item.id)}
+                  className="block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
+                  style={{ paddingLeft: `${0.75 + (item.level - 1) * 0.75}rem` }}
+                >
+                  {item.text}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-
-        <aside>
-          <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--background)" }}>
-            <h2 className="text-sm font-semibold uppercase tracking-wide">Outline</h2>
-            {outline.length === 0 ? (
-              <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                Add headings like #, ##, or ### to generate a clickable outline for longer documents.
-              </p>
-            ) : (
-              <div className="mt-3 space-y-2">
-                {outline.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => jumpToHeading(item.id)}
-                    className="block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
-                    style={{ paddingLeft: `${0.75 + (item.level - 1) * 0.75}rem` }}
-                  >
-                    {item.text}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </aside>
       </div>
 
       <div className="flex border-b md:hidden" style={{ borderColor: "var(--border)" }}>

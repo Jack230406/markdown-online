@@ -30,6 +30,7 @@ export function MarkdownEditor() {
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "idle">("idle");
   const [copied, setCopied] = useState<string | null>(null);
   const [syncScroll, setSyncScroll] = useState(false);
+  const [outlineOpen, setOutlineOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -320,28 +321,40 @@ em { font-style: italic; }
         </div>
       </div>
 
-      <div className="border-b px-4 py-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-        <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--background)" }}>
-          <h2 className="text-sm font-semibold uppercase tracking-wide">Outline</h2>
-          {outline.length === 0 ? (
-            <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-              Add headings like #, ##, or ### to generate a clickable outline for longer documents.
-            </p>
-          ) : (
-            <div className="mt-3 space-y-2">
-              {outline.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => jumpToHeading(item.id)}
-                  className="block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
-                  style={{ paddingLeft: `${0.75 + (item.level - 1) * 0.75}rem` }}
-                >
-                  {item.text}
-                </button>
-              ))}
+      <div className="border-b px-4 py-3" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <details
+          className="rounded-2xl border"
+          style={{ borderColor: "var(--border)", background: "var(--background)" }}
+          open={outlineOpen}
+          onToggle={(e) => setOutlineOpen((e.currentTarget as HTMLDetailsElement).open)}
+        >
+          <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold uppercase tracking-wide select-none">
+            <div className="flex items-center justify-between">
+              <span>Outline</span>
+              <span style={{ color: "var(--muted)" }}>{outlineOpen ? "−" : "+"}</span>
             </div>
-          )}
-        </div>
+          </summary>
+          <div className="border-t px-4 py-3" style={{ borderColor: "var(--border)" }}>
+            {outline.length === 0 ? (
+              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                Add headings like #, ##, or ### to generate a clickable outline for longer documents.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {outline.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => jumpToHeading(item.id)}
+                    className="block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
+                    style={{ paddingLeft: `${0.75 + (item.level - 1) * 0.75}rem` }}
+                  >
+                    {item.text}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </details>
       </div>
 
       <div className="flex border-b md:hidden" style={{ borderColor: "var(--border)" }}>

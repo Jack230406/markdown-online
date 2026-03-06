@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useCallback, useMemo, useRef } from "react";
 
 export default function MarkdownTableGeneratorPage() {
@@ -10,39 +11,71 @@ export default function MarkdownTableGeneratorPage() {
       Array.from({ length: 4 }, (_, c) => (r === 0 ? `Header ${c + 1}` : ""))
     )
   );
-  const [align, setAlign] = useState<("left"|"center"|"right")[]>(() => Array(4).fill("left"));
+  const [align, setAlign] = useState<("left" | "center" | "right")[]>(() => Array(4).fill("left"));
   const [copied, setCopied] = useState(false);
   const [importText, setImportText] = useState("");
   const [showImport, setShowImport] = useState(false);
   const csvInputRef = useRef<HTMLInputElement>(null);
 
   const updateCell = (r: number, c: number, val: string) => {
-    setData(prev => { const n = prev.map(row => [...row]); n[r][c] = val; return n; });
-  };
-  const addRow = () => { setRows(r => r + 1); setData(prev => [...prev, Array(cols).fill("")]); };
-  const addCol = () => { setCols(c => c + 1); setData(prev => prev.map(row => [...row, ""])); setAlign(prev => [...prev, "left"]); };
-  const removeRow = () => { if (rows <= 2) return; setRows(r => r - 1); setData(prev => prev.slice(0, -1)); };
-  const removeCol = () => { if (cols <= 2) return; setCols(c => c - 1); setData(prev => prev.map(row => row.slice(0, -1))); setAlign(prev => prev.slice(0, -1)); };
-  const cycleAlign = (c: number) => {
-    const order: ("left"|"center"|"right")[] = ["left", "center", "right"];
-    setAlign(prev => { const n = [...prev]; n[c] = order[(order.indexOf(n[c]) + 1) % 3]; return n; });
+    setData((prev) => {
+      const next = prev.map((row) => [...row]);
+      next[r][c] = val;
+      return next;
+    });
   };
 
-  // Parse CSV/TSV/pasted table text into 2D array
+  const addRow = () => {
+    setRows((r) => r + 1);
+    setData((prev) => [...prev, Array(cols).fill("")]);
+  };
+
+  const addCol = () => {
+    setCols((c) => c + 1);
+    setData((prev) => prev.map((row) => [...row, ""]));
+    setAlign((prev) => [...prev, "left"]);
+  };
+
+  const removeRow = () => {
+    if (rows <= 2) return;
+    setRows((r) => r - 1);
+    setData((prev) => prev.slice(0, -1));
+  };
+
+  const removeCol = () => {
+    if (cols <= 2) return;
+    setCols((c) => c - 1);
+    setData((prev) => prev.map((row) => row.slice(0, -1)));
+    setAlign((prev) => prev.slice(0, -1));
+  };
+
+  const clearTable = () => {
+    setRows(4);
+    setCols(4);
+    setData(Array.from({ length: 4 }, (_, r) => Array.from({ length: 4 }, (_, c) => (r === 0 ? `Header ${c + 1}` : ""))));
+    setAlign(Array(4).fill("left"));
+  };
+
+  const cycleAlign = (c: number) => {
+    const order: ("left" | "center" | "right")[] = ["left", "center", "right"];
+    setAlign((prev) => {
+      const next = [...prev];
+      next[c] = order[(order.indexOf(next[c]) + 1) % 3];
+      return next;
+    });
+  };
+
   const parseTableText = (text: string): string[][] => {
-    const lines = text.trim().split(/\r?\n/).filter(l => l.trim());
+    const lines = text.trim().split(/\r?\n/).filter((l) => l.trim());
     if (!lines.length) return [];
-    // Detect delimiter: tab first, then comma, then pipe
     const firstLine = lines[0];
     let delimiter = "\t";
-    if (!firstLine.includes("\t")) {
-      delimiter = firstLine.includes("|") ? "|" : ",";
-    }
+    if (!firstLine.includes("\t")) delimiter = firstLine.includes("|") ? "|" : ",";
+
     return lines
-      .filter(l => !/^[\s|:-]+$/.test(l)) // skip markdown separator rows
-      .map(l => {
-        let row = l.split(delimiter).map(c => c.trim());
-        // strip leading/trailing empty cells from pipe-delimited
+      .filter((l) => !/^[\s|:-]+$/.test(l))
+      .map((l) => {
+        let row = l.split(delimiter).map((cell) => cell.trim());
         if (delimiter === "|" && row[0] === "") row = row.slice(1);
         if (delimiter === "|" && row[row.length - 1] === "") row = row.slice(0, -1);
         return row;
@@ -51,8 +84,8 @@ export default function MarkdownTableGeneratorPage() {
 
   const applyImport = (parsed: string[][]) => {
     if (!parsed.length) return;
-    const maxCols = Math.max(...parsed.map(r => r.length));
-    const normalized = parsed.map(r => {
+    const maxCols = Math.max(...parsed.map((r) => r.length));
+    const normalized = parsed.map((r) => {
       const padded = [...r];
       while (padded.length < maxCols) padded.push("");
       return padded;
@@ -61,8 +94,8 @@ export default function MarkdownTableGeneratorPage() {
     setRows(normalized.length);
     setCols(maxCols);
     setAlign(Array(maxCols).fill("left"));
-    setShowImport(false);
     setImportText("");
+    setShowImport(false);
   };
 
   const handleImportPaste = () => {
@@ -85,45 +118,27 @@ export default function MarkdownTableGeneratorPage() {
     e.target.value = "";
   };
 
-  const insertRowAt = (r: number) => {
-    setRows(prev => prev + 1);
-    setData(prev => [...prev.slice(0, r), Array(cols).fill(""), ...prev.slice(r)]);
-  };
-  const deleteRowAt = (r: number) => {
-    if (rows <= 2) return;
-    setRows(prev => prev - 1);
-    setData(prev => prev.filter((_, i) => i !== r));
-  };
-  const insertColAt = (c: number) => {
-    setCols(prev => prev + 1);
-    setData(prev => prev.map(row => [...row.slice(0, c), "", ...row.slice(c)]));
-    setAlign(prev => [...prev.slice(0, c), "left", ...prev.slice(c)]);
-  };
-  const deleteColAt = (c: number) => {
-    if (cols <= 2) return;
-    setCols(prev => prev - 1);
-    setData(prev => prev.map(row => row.filter((_, i) => i !== c)));
-    setAlign(prev => prev.filter((_, i) => i !== c));
-  };
+  const formatTable = () => setData((prev) => prev.map((row) => row.map((cell) => cell.trim())));
 
   const markdown = useMemo(() => {
     if (!data.length) return "";
-    const w = Array.from({ length: cols }, (_, c) => Math.max(3, ...data.map(r => (r[c]||"").length)));
+    const widths = Array.from({ length: cols }, (_, c) => Math.max(3, ...data.map((row) => (row[c] || "").length)));
     const pad = (s: string, len: number) => s + " ".repeat(Math.max(0, len - s.length));
-    const hdr = "| " + data[0].map((cell, c) => pad(cell||"", w[c])).join(" | ") + " |";
-    const sep = "| " + w.map((ww, c) => {
-      const d = "-".repeat(ww);
-      if (align[c] === "center") return ":" + d.slice(1,-1) + ":";
-      if (align[c] === "right") return d.slice(0,-1) + ":";
-      return d;
+    const header = "| " + data[0].map((cell, c) => pad(cell || "", widths[c])).join(" | ") + " |";
+    const separator = "| " + widths.map((w, c) => {
+      const dashes = "-".repeat(w);
+      if (align[c] === "center") return `:${dashes.slice(1, -1)}:`;
+      if (align[c] === "right") return `${dashes.slice(0, -1)}:`;
+      return dashes;
     }).join(" | ") + " |";
-    const body = data.slice(1).map(row => "| " + row.map((cell, c) => pad(cell||"", w[c])).join(" | ") + " |");
-    return [hdr, sep, ...body].join("\n");
+    const body = data.slice(1).map((row) => "| " + row.map((cell, c) => pad(cell || "", widths[c])).join(" | ") + " |");
+    return [header, separator, ...body].join("\n");
   }, [data, cols, align]);
 
   const copy = useCallback(async () => {
     await navigator.clipboard.writeText(markdown);
-    setCopied(true); setTimeout(() => setCopied(false), 2000);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   }, [markdown]);
 
   const downloadMd = useCallback(() => {
@@ -136,175 +151,163 @@ export default function MarkdownTableGeneratorPage() {
     URL.revokeObjectURL(url);
   }, [markdown]);
 
-  const alignIcon = (a: string) => a === "left" ? "⬅" : a === "center" ? "↔" : "➡";
+  const alignIcon = (a: string) => (a === "left" ? "⬅" : a === "center" ? "↔" : "➡");
 
   const faqData = [
-    { q: "How do I create a Markdown table?", a: "Use our visual editor above. Fill in the cells, adjust alignment, then copy the generated Markdown code." },
-    { q: "Can I change column alignment?", a: "Yes! Click the alignment button above each column to cycle between left, center, and right alignment." },
-    { q: "Is this tool free?", a: "Yes, completely free with no signup required. All processing happens in your browser." },
-    { q: "What is Markdown table syntax?", a: "Markdown tables use pipes (|) to separate columns and hyphens (-) for the header separator row. Colons (:) control alignment." },
+    { q: "Can I paste data directly from Excel or Google Sheets?", a: "Yes. Paste tab-separated data directly into the import box, or upload a CSV file." },
+    { q: "Can I control column alignment?", a: "Yes. Each column has a quick alignment toggle for left, center, and right alignment." },
+    { q: "Does it format the final Markdown table for me?", a: "Yes. The generated Markdown is padded and aligned so it stays readable and ready to copy." },
+    { q: "Is this useful for README files and docs?", a: "Yes. It is built for practical table creation in README files, documentation, blog posts, and notes." },
   ];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="mb-2 text-3xl font-bold">Markdown Table Generator</h1>
-      <p className="mb-6" style={{ color: "var(--muted)" }}>Create Markdown tables visually. Edit cells, set alignment, and copy the generated code.</p>
+      <section className="mb-8 rounded-2xl border px-6 py-8" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <h1 className="text-3xl font-bold sm:text-4xl">Markdown Table Generator</h1>
+        <p className="mt-3 max-w-3xl text-base leading-relaxed" style={{ color: "var(--muted)" }}>
+          Build Markdown tables visually, paste data from Excel or CSV, switch alignment with one click, and copy clean table syntax for README files, docs, and posts.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          <button onClick={copy} className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+            {copied ? "✓ Copied" : "Copy Markdown"}
+          </button>
+          <button onClick={downloadMd} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+            Download .md
+          </button>
+          <button onClick={formatTable} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+            Format cells
+          </button>
+          <button onClick={() => setShowImport(!showImport)} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+            Import data
+          </button>
+          <input ref={csvInputRef} type="file" accept=".csv,.tsv,.txt" onChange={handleCsvUpload} className="hidden" />
+          <button onClick={() => csvInputRef.current?.click()} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+            Upload CSV
+          </button>
+          <button onClick={clearTable} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+            Clear table
+          </button>
+        </div>
+      </section>
 
-      {/* Controls */}
-      <div className="mb-4 flex flex-wrap gap-2">
-        <button onClick={addRow} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>+ Row</button>
-        <button onClick={removeRow} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>- Row</button>
-        <button onClick={addCol} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>+ Column</button>
-        <button onClick={removeCol} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>- Column</button>
-        <button onClick={copy} className="rounded-lg bg-blue-500 px-4 py-1 text-sm font-medium text-white hover:bg-blue-600">
-          {copied ? "✓ Copied!" : "Copy Markdown"}
-        </button>
-        <button onClick={downloadMd} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
-          ↓ .md
-        </button>
-        <button onClick={() => setShowImport(!showImport)} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
-          ↑ Import
-        </button>
-        <input ref={csvInputRef} type="file" accept=".csv,.tsv,.txt" onChange={handleCsvUpload} className="hidden" />
-        <button onClick={() => csvInputRef.current?.click()} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
-          ↑ Upload CSV
-        </button>
-      </div>
-
-      {/* Import panel */}
       {showImport && (
-        <div className="mb-4 rounded-lg border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-          <label className="mb-1 block text-sm font-medium">Paste table data (CSV, TSV, or copied from Excel/Sheets)</label>
+        <div className="mb-6 rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+          <label className="mb-2 block text-sm font-medium">Paste CSV, TSV, or spreadsheet data</label>
           <textarea
             value={importText}
             onChange={(e) => setImportText(e.target.value)}
-            className="mb-2 w-full rounded border p-2 text-sm outline-none"
-            style={{ borderColor: "var(--border)", background: "var(--background)", color: "var(--foreground)", minHeight: 100 }}
-            placeholder={"Name\tAge\tCity\nAlice\t30\tNew York\nBob\t25\tLondon"}
+            className="mb-3 w-full rounded-xl border p-3 text-sm outline-none"
+            style={{ borderColor: "var(--border)", background: "var(--background)", color: "var(--foreground)", minHeight: 120 }}
+            placeholder={"Name\tRole\tStatus\nAlice\tEditor\tReady\nBob\tReviewer\tPending"}
           />
           <div className="flex gap-2">
-            <button onClick={handleImportPaste} className="rounded-lg bg-blue-500 px-4 py-1 text-sm font-medium text-white hover:bg-blue-600">
-              Import
-            </button>
-            <button onClick={() => { setShowImport(false); setImportText(""); }} className="rounded border px-3 py-1 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
-              Cancel
-            </button>
+            <button onClick={handleImportPaste} className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">Import data</button>
+            <button onClick={() => { setShowImport(false); setImportText(""); }} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>Cancel</button>
           </div>
         </div>
       )}
 
-      {/* Column alignment + insert/delete buttons */}
+      <div className="mb-4 flex flex-wrap gap-2">
+        <button onClick={addRow} className="rounded-full border px-3 py-1.5 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>+ Row</button>
+        <button onClick={removeRow} className="rounded-full border px-3 py-1.5 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>- Row</button>
+        <button onClick={addCol} className="rounded-full border px-3 py-1.5 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>+ Column</button>
+        <button onClick={removeCol} className="rounded-full border px-3 py-1.5 text-sm hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>- Column</button>
+      </div>
+
       <div className="mb-1 flex" style={{ paddingLeft: 40 }}>
         {Array.from({ length: cols }, (_, c) => (
-          <div key={c} className="flex flex-1 flex-col items-center gap-0.5" style={{ minWidth: 80 }}>
-            <button
-              onClick={() => cycleAlign(c)}
-              className="w-full rounded border px-1 py-1 text-center text-xs hover:bg-[var(--surface-alt)]"
-              style={{ borderColor: "var(--border)" }}
-              title={`Align: ${align[c]}`}
-            >
+          <div key={c} className="flex flex-1 justify-center" style={{ minWidth: 90 }}>
+            <button onClick={() => cycleAlign(c)} className="rounded-full border px-3 py-1 text-xs hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
               {alignIcon(align[c])} {align[c]}
             </button>
-            <div className="flex gap-0.5">
-              <button
-                onClick={() => insertColAt(c)}
-                className="rounded border px-1 py-0.5 text-[10px] hover:bg-[var(--surface-alt)]"
-                style={{ borderColor: "var(--border)" }}
-                title="Insert column left"
-              >+Col</button>
-              <button
-                onClick={() => deleteColAt(c)}
-                className="rounded border px-1 py-0.5 text-[10px] hover:bg-red-100 hover:text-red-600"
-                style={{ borderColor: "var(--border)", opacity: cols <= 2 ? 0.4 : 1 }}
-                disabled={cols <= 2}
-                title="Delete this column"
-              >✕Col</button>
-            </div>
           </div>
         ))}
       </div>
 
-      {/* Table editor */}
-      <div className="mb-6 overflow-x-auto">
+      <div className="mb-8 overflow-x-auto rounded-2xl border" style={{ borderColor: "var(--border)" }}>
         <table className="w-full border-collapse">
           <tbody>
             {data.map((row, r) => (
               <tr key={r}>
-                {/* Row number */}
-                <td className="w-[40px] border-none p-0 text-center align-middle select-none" style={{ minWidth: 40 }}>
-                  <span className="text-xs" style={{ color: "var(--muted)" }}>{r + 1}</span>
-                </td>
+                <td className="w-[40px] p-0 text-center text-xs align-middle" style={{ color: "var(--muted)" }}>{r + 1}</td>
                 {row.map((cell, c) => (
                   <td key={c} className="border p-0" style={{ borderColor: "var(--border)" }}>
-                    <input type="text" value={cell} onChange={(e) => updateCell(r, c, e.target.value)}
-                      className={`w-full border-none px-2 py-1.5 text-sm outline-none ${r === 0 ? "font-bold" : ""}`}
-                      style={{ background: r === 0 ? "var(--surface-alt)" : "var(--surface)", color: "var(--foreground)", minWidth: 80, textAlign: align[c] }}
-                      placeholder={r === 0 ? "Header" : "Cell"} />
+                    <input
+                      type="text"
+                      value={cell}
+                      onChange={(e) => updateCell(r, c, e.target.value)}
+                      className={`w-full border-none px-3 py-2 text-sm outline-none ${r === 0 ? "font-semibold" : ""}`}
+                      style={{ background: r === 0 ? "var(--surface-alt)" : "var(--surface)", color: "var(--foreground)", minWidth: 100, textAlign: align[c] }}
+                      placeholder={r === 0 ? "Header" : "Cell"}
+                    />
                   </td>
                 ))}
-                {/* Row actions */}
-                <td className="border-none p-0 pl-1 align-middle select-none" style={{ minWidth: 70 }}>
-                  <div className="flex gap-0.5">
-                    <button
-                      onClick={() => insertRowAt(r)}
-                      className="rounded border px-1 py-0.5 text-[10px] hover:bg-[var(--surface-alt)]"
-                      style={{ borderColor: "var(--border)" }}
-                      title="Insert row above"
-                    >+Row</button>
-                    <button
-                      onClick={() => deleteRowAt(r)}
-                      className="rounded border px-1 py-0.5 text-[10px] hover:bg-red-100 hover:text-red-600"
-                      style={{ borderColor: "var(--border)", opacity: rows <= 2 ? 0.4 : 1 }}
-                      disabled={rows <= 2}
-                      title="Delete this row"
-                    >✕</button>
-                  </div>
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Generated Markdown */}
-      <div className="mb-6">
-        <label className="mb-1 block text-sm font-medium">Generated Markdown</label>
-        <pre className="overflow-auto rounded-lg border p-3 text-sm" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+      <div className="mb-10">
+        <label className="mb-2 block text-sm font-medium">Generated Markdown</label>
+        <pre className="overflow-auto rounded-2xl border p-4 text-sm" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
           <code>{markdown}</code>
         </pre>
       </div>
 
-      {/* SEO Content */}
-      <section className="mt-12 max-w-3xl">
-        <h2 className="mb-4 text-2xl font-bold">How to Create Markdown Tables</h2>
-        <p className="mb-4 leading-relaxed">Our free Markdown Table Generator lets you create perfectly formatted Markdown tables visually. No need to manually type pipes and dashes — just fill in the cells, adjust column alignment, and copy the generated code. It works entirely in your browser with no signup required.</p>
-        <h3 className="mb-2 text-xl font-semibold">Markdown Table Syntax</h3>
-        <p className="mb-4 leading-relaxed">Markdown tables use pipes (|) to separate columns and hyphens (-) for the header separator. You can control alignment with colons: left-aligned (default), center-aligned (:---:), or right-aligned (---:). Our generator handles all the formatting automatically so you can focus on your content.</p>
-        <p className="mb-4 leading-relaxed">Tables are supported in GitHub Flavored Markdown (GFM), most static site generators, documentation platforms, and Markdown editors. They render as clean HTML tables in the final output, making them perfect for data presentation in README files, documentation, and blog posts.</p>
-        <p className="mb-4 leading-relaxed">This tool is ideal for developers writing documentation, students formatting data for reports, and anyone who needs to create structured tables quickly. The visual editor makes it easy to see your table structure while the generated Markdown stays perfectly formatted.</p>
+      <section className="mt-12 grid gap-6 lg:grid-cols-[1.4fr_0.9fr]">
+        <div>
+          <h2 className="mb-3 text-2xl font-bold">Built for one of the most annoying Markdown tasks</h2>
+          <p className="mb-4 leading-relaxed" style={{ color: "var(--muted)" }}>
+            Hand-writing Markdown tables is slow and error-prone. This page turns table creation into a quick visual task: paste your data, adjust alignment, then copy a clean Markdown table that is ready for GitHub, docs, or publishing.
+          </p>
+
+          <h3 className="mb-2 text-xl font-semibold">Best ways to use it</h3>
+          <ul className="mb-6 list-inside list-disc space-y-2" style={{ color: "var(--muted)" }}>
+            <li>Paste directly from Excel, Sheets, CSV, or TSV</li>
+            <li>Format a README pricing table or feature matrix</li>
+            <li>Generate aligned docs tables without hand-editing separators</li>
+            <li>Copy clean Markdown instantly for publishing or commit-ready docs</li>
+          </ul>
+
+          <h3 className="mb-2 text-xl font-semibold">Why this page matters</h3>
+          <p className="leading-relaxed" style={{ color: "var(--muted)" }}>
+            Unlike generic editors, this tool solves a specific job. It is especially useful when you already have spreadsheet data and need a Markdown-friendly version fast.
+          </p>
+        </div>
+
+        <aside className="space-y-4">
+          <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+            <h3 className="mb-2 font-semibold">Quick wins</h3>
+            <ul className="space-y-2 text-sm" style={{ color: "var(--muted)" }}>
+              <li>CSV / TSV import</li>
+              <li>One-click alignment changes</li>
+              <li>Readable generated syntax</li>
+              <li>Copy or download in one step</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+            <h3 className="mb-2 font-semibold">Related tools</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/" className="text-blue-500 hover:underline">Markdown Editor</Link></li>
+              <li><Link href="/markdown-to-html/" className="text-blue-500 hover:underline">Markdown to HTML</Link></li>
+              <li><Link href="/markdown-cheat-sheet/" className="text-blue-500 hover:underline">Markdown Cheat Sheet</Link></li>
+            </ul>
+          </div>
+        </aside>
       </section>
 
-      <div className="mt-8 max-w-3xl rounded-lg border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-        <h3 className="mb-2 font-semibold">Related Tools</h3>
-        <ul className="space-y-1 text-sm">
-          <li><a href="/" className="text-blue-500 hover:underline">Markdown Editor</a> — Full-featured online Markdown editor</li>
-          <li><a href="/markdown-to-html/" className="text-blue-500 hover:underline">Markdown to HTML</a> — Convert Markdown to HTML code</li>
-          <li><a href="/markdown-cheat-sheet/" className="text-blue-500 hover:underline">Markdown Cheat Sheet</a> — Quick reference guide</li>
-        </ul>
-      </div>
-
-      <section className="mt-10 max-w-3xl">
-        <h2 className="mb-4 text-2xl font-bold">Frequently Asked Questions</h2>
+      <section className="mt-12 max-w-4xl">
+        <h2 className="mb-4 text-2xl font-bold">Frequently asked questions</h2>
         <div className="space-y-4">
           {faqData.map((f, i) => (
-            <details key={i} className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
+            <details key={i} className="rounded-2xl border p-4" style={{ borderColor: "var(--border)" }}>
               <summary className="cursor-pointer font-medium">{f.q}</summary>
-              <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>{f.a}</p>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{f.a}</p>
             </details>
           ))}
         </div>
       </section>
-
     </div>
   );
 }

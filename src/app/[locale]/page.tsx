@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { MarkdownEditor } from "@/components/MarkdownEditor";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getCanonicalUrl, getHreflangAlternates } from "@/lib/metadata";
@@ -30,6 +31,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
+  const localePrefix = locale === "en" ? "" : `/${locale}`;
+  const primaryCtas = [
+    { href: `${localePrefix}/markdown-to-pdf/`, label: t("ctaPdf") },
+    { href: `${localePrefix}/markdown-to-html/`, label: t("ctaHtml") },
+    { href: `${localePrefix}/markdown-to-word/`, label: t("ctaWord") },
+    { href: `${localePrefix}/markdown-table-generator/`, label: t("ctaTable") },
+  ];
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -59,11 +67,30 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* H1 for SEO - visually compact */}
-      <div className="border-b px-4 py-3 text-center" style={{ borderColor: "var(--border)" }}>
-        <h1 className="text-lg font-bold sm:text-xl">{t("h1")}</h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>{t("seoFeatures")}</p>
-      </div>
+      <section className="border-b px-4 py-8" style={{ borderColor: "var(--border)" }}>
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="text-sm font-medium uppercase tracking-[0.2em]" style={{ color: "var(--muted)" }}>
+            {t("eyebrow")}
+          </p>
+          <h1 className="mt-3 text-3xl font-bold sm:text-4xl">{t("h1")}</h1>
+          <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed sm:text-lg" style={{ color: "var(--muted)" }}>
+            {t("heroDesc")}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            {primaryCtas.map((cta) => (
+              <Link
+                key={cta.href}
+                href={cta.href}
+                className="rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:text-primary"
+                style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+              >
+                {cta.label}
+              </Link>
+            ))}
+          </div>
+          <p className="mt-4 text-sm" style={{ color: "var(--muted)" }}>{t("seoFeatures")}</p>
+        </div>
+      </section>
 
       <div className="mx-auto w-full max-w-7xl px-4 py-4">
         <div className="h-[calc(100vh-14rem)] overflow-hidden rounded-lg border-2" style={{ borderColor: "var(--border)" }}>

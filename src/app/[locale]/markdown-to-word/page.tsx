@@ -1,40 +1,33 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useMemo, useCallback, useRef } from "react";
 import MarkdownIt from "markdown-it";
 
 const SAMPLE = `# Meeting Notes
 
-**Date:** February 24, 2026
-**Attendees:** Alice, Bob, Charlie
+**Date:** March 6, 2026
+**Owner:** Product Team
 
 ## Agenda
 
-1. Project status update
-2. Budget review
+1. Status updates
+2. Delivery risks
 3. Next steps
 
-## Discussion
+## Notes
 
-The team discussed the current progress on the **Q1 deliverables**. Key points:
+- Final review scheduled for Friday
+- Docs export is part of the release checklist
+- Client handoff requires a .docx copy
 
-- Frontend development is 80% complete
-- API integration testing starts next week
-- Design review scheduled for Friday
+> Word export is useful when the receiver expects an editable file.
 
-> Action item: Bob to prepare the budget report by Thursday.
-
-## Budget Summary
-
-| Category | Allocated | Spent | Remaining |
-|----------|-----------|-------|-----------|
-| Development | $50,000 | $35,000 | $15,000 |
-| Design | $20,000 | $18,000 | $2,000 |
-| Testing | $15,000 | $5,000 | $10,000 |
-
-## Next Meeting
-
-Scheduled for **March 3, 2026** at 10:00 AM.
+| Item | Owner | Status |
+|------|-------|--------|
+| Spec | Alan | Ready |
+| Review | Team | Pending |
+| Handoff | Ops | Planned |
 `;
 
 export default function MarkdownToWordPage() {
@@ -43,26 +36,20 @@ export default function MarkdownToWordPage() {
   const [converting, setConverting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const md = useMemo(
-    () => MarkdownIt({ html: true, linkify: true, typographer: true }),
-    []
-  );
+  const md = useMemo(() => MarkdownIt({ html: true, linkify: true, typographer: true }), []);
   const renderedHtml = useMemo(() => md.render(content), [md, content]);
 
-  const handleFileUpload = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        const text = ev.target?.result;
-        if (typeof text === "string") setContent(text);
-      };
-      reader.readAsText(file);
-      e.target.value = "";
-    },
-    []
-  );
+  const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const text = ev.target?.result;
+      if (typeof text === "string") setContent(text);
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  }, []);
 
   const exportWord = useCallback(async () => {
     setConverting(true);
@@ -70,7 +57,6 @@ export default function MarkdownToWordPage() {
       const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = await import("docx");
       const { saveAs } = await import("file-saver");
 
-      // Parse markdown into lines and create paragraphs
       const lines = content.split("\n");
       const children: InstanceType<typeof Paragraph>[] = [];
 
@@ -90,14 +76,9 @@ export default function MarkdownToWordPage() {
           children.push(new Paragraph({ text: line.slice(2), bullet: { level: 0 } }));
         } else if (/^\d+\.\s/.test(line)) {
           children.push(new Paragraph({ text: line.replace(/^\d+\.\s/, ""), numbering: { reference: "default-numbering", level: 0 } }));
-        } else if (line.startsWith("**") && line.endsWith("**")) {
-          children.push(new Paragraph({
-            children: [new TextRun({ text: line.slice(2, -2), bold: true })],
-          }));
         } else if (line.trim() === "") {
           children.push(new Paragraph({ text: "" }));
         } else {
-          // Handle inline bold
           const parts: InstanceType<typeof TextRun>[] = [];
           const regex = /\*\*(.+?)\*\*/g;
           let lastIndex = 0;
@@ -137,132 +118,118 @@ export default function MarkdownToWordPage() {
   }, [content]);
 
   const faqData = [
-    { q: "Is this Markdown to Word converter free?", a: "Yes, completely free. No signup, no watermarks, no limits." },
-    { q: "Is my data safe?", a: "All conversion happens in your browser. Your content never leaves your device." },
-    { q: "Does it support tables?", a: "Basic table content is preserved as text. Complex table formatting may vary in the Word output." },
-    { q: "What Word format is generated?", a: "The tool generates standard .docx files compatible with Microsoft Word, Google Docs, and LibreOffice." },
+    { q: "When should I export Markdown to Word?", a: "Use Word export when the final receiver expects an editable .docx file for review, collaboration, or formal delivery." },
+    { q: "What formatting is preserved?", a: "Headings, bold text, lists, blockquotes, and common paragraph structure are preserved. Complex table formatting may vary." },
+    { q: "Will the output open in Microsoft Word and Google Docs?", a: "Yes. The generated file is a standard .docx document compatible with Word, Google Docs, and LibreOffice." },
+    { q: "Does the export happen locally?", a: "Yes. The .docx file is generated in your browser, so your Markdown content is not uploaded." },
   ];
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqData.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <div className="mx-auto max-w-6xl px-4 py-8">
-
-        <h1 className="mb-2 text-3xl font-bold">Markdown to Word Converter</h1>
-        <p className="mb-6" style={{ color: "var(--muted)" }}>
-          Convert Markdown to .docx Word documents instantly. Free, no signup required.
+    <div className="mx-auto max-w-6xl px-4 py-8">
+      <section className="mb-8 rounded-2xl border px-6 py-8" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+        <h1 className="text-3xl font-bold sm:text-4xl">Markdown to Word Converter</h1>
+        <p className="mt-3 max-w-3xl text-base leading-relaxed" style={{ color: "var(--muted)" }}>
+          Export Markdown as an editable .docx file for handoff, client delivery, schoolwork, business docs, and team review workflows.
         </p>
-
-        <div className="mb-4 flex flex-wrap gap-2">
-          <button
-            onClick={exportWord}
-            disabled={converting}
-            className="rounded-lg bg-blue-500 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600 disabled:opacity-50"
-          >
-            {converting ? "Converting..." : "⬇ Download .docx"}
+        <div className="mt-5 flex flex-wrap gap-2">
+          <button onClick={exportWord} disabled={converting} className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50">
+            {converting ? "Converting..." : "Download .docx"}
           </button>
           <input ref={fileInputRef} type="file" accept=".md,.markdown,.txt" onChange={handleFileUpload} className="hidden" />
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="rounded-lg border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--surface-alt)]"
-            style={{ borderColor: "var(--border)" }}
-          >
-            ↑ Upload .md
+          <button onClick={() => fileInputRef.current?.click()} className="rounded-full border px-4 py-2 text-sm font-medium hover:bg-[var(--surface-alt)]" style={{ borderColor: "var(--border)" }}>
+            Upload Markdown
           </button>
         </div>
+      </section>
 
-        {/* Mobile tabs */}
-        <div className="mb-4 flex border-b md:hidden" style={{ borderColor: "var(--border)" }}>
-          <button
-            onClick={() => setActiveTab("input")}
-            className={`flex-1 py-2 text-center text-sm font-medium ${activeTab === "input" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}
-          >
-            Markdown
-          </button>
-          <button
-            onClick={() => setActiveTab("preview")}
-            className={`flex-1 py-2 text-center text-sm font-medium ${activeTab === "preview" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}
-          >
-            Preview
-          </button>
+      <div className="mb-4 flex border-b md:hidden" style={{ borderColor: "var(--border)" }}>
+        <button onClick={() => setActiveTab("input")} className={`flex-1 py-2 text-center text-sm font-medium ${activeTab === "input" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}>
+          Markdown
+        </button>
+        <button onClick={() => setActiveTab("preview")} className={`flex-1 py-2 text-center text-sm font-medium ${activeTab === "preview" ? "border-b-2 border-blue-500 text-blue-500" : ""}`}>
+          Preview
+        </button>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2" style={{ minHeight: 440 }}>
+        <div className={`${activeTab === "preview" ? "hidden md:block" : ""}`}>
+          <label className="mb-2 block text-sm font-medium">Markdown input</label>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="h-[440px] w-full rounded-2xl border p-4 font-mono text-sm outline-none focus:ring-2 focus:ring-blue-500"
+            style={{ borderColor: "var(--border)", background: "var(--surface)", color: "var(--foreground)" }}
+            spellCheck={false}
+          />
         </div>
-
-        <div className="grid gap-4 md:grid-cols-2" style={{ minHeight: 400 }}>
-          <div className={`${activeTab === "preview" ? "hidden md:block" : ""}`}>
-            <label className="mb-1 block text-sm font-medium">Markdown Input</label>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="h-[400px] w-full rounded-lg border p-3 font-mono text-sm outline-none focus:ring-2 focus:ring-blue-500"
-              style={{ borderColor: "var(--border)", background: "var(--surface)", color: "var(--foreground)" }}
-              spellCheck={false}
-            />
-          </div>
-          <div className={`${activeTab === "input" ? "hidden md:block" : ""}`}>
-            <label className="mb-1 block text-sm font-medium">Document Preview</label>
-            <div
-              className="markdown-preview h-[400px] overflow-auto rounded-lg border p-4"
-              style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-              dangerouslySetInnerHTML={{ __html: renderedHtml }}
-            />
-          </div>
+        <div className={`${activeTab === "input" ? "hidden md:block" : ""}`}>
+          <label className="mb-2 block text-sm font-medium">Document preview</label>
+          <div className="markdown-preview h-[440px] overflow-auto rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }} dangerouslySetInnerHTML={{ __html: renderedHtml }} />
         </div>
+      </div>
 
-        {/* SEO Content */}
-        <section className="mt-12 max-w-3xl">
-          <h2 className="mb-4 text-2xl font-bold">How to Convert Markdown to Word Online</h2>
-          <p className="mb-4 leading-relaxed">
-            Our free Markdown to Word converter transforms your Markdown text into professional .docx documents that open in Microsoft Word, Google Docs, and LibreOffice. No software to install, no account to create — just paste your Markdown and download the Word file.
-          </p>
-          <h3 className="mb-2 text-xl font-semibold">Simple 3-Step Process</h3>
-          <ol className="mb-6 list-inside list-decimal space-y-2">
-            <li>Paste or type your Markdown content in the editor</li>
-            <li>Preview the formatted output in the right panel</li>
-            <li>Click &quot;Download .docx&quot; to save your Word document</li>
-          </ol>
-          <h3 className="mb-2 text-xl font-semibold">Why Convert Markdown to Word?</h3>
-          <p className="mb-4 leading-relaxed">
-            While Markdown is the preferred format for developers and technical writers, many workplaces and clients expect documents in Word format. Converting Markdown to .docx bridges this gap, letting you write in the format you love while delivering in the format others expect. The generated Word documents preserve headings, bold and italic text, lists, blockquotes, and basic formatting.
-          </p>
-          <p className="mb-4 leading-relaxed">
-            This tool is ideal for preparing meeting notes, project documentation, reports, and proposals. Write efficiently in Markdown, then export a polished Word document ready for sharing with colleagues, clients, or stakeholders who prefer the familiar .docx format. All processing happens locally in your browser, so your sensitive documents remain completely private.
+      <section className="mt-12 grid gap-6 lg:grid-cols-[1.4fr_0.9fr]">
+        <div>
+          <h2 className="mb-3 text-2xl font-bold">Best for editable delivery, not just viewing</h2>
+          <p className="mb-4 leading-relaxed" style={{ color: "var(--muted)" }}>
+            Use Word export when Markdown is your writing format but the final receiver wants a document they can open, edit, comment on, or pass around in a familiar office workflow.
           </p>
 
-          <div className="mt-8 rounded-lg border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-            <h3 className="mb-2 font-semibold">Related Tools</h3>
-            <ul className="space-y-1 text-sm">
-              <li><a href="/" className="text-blue-500 hover:underline">Markdown Editor</a> — Full-featured online Markdown editor</li>
-              <li><a href="/markdown-to-html/" className="text-blue-500 hover:underline">Markdown to HTML</a> — Convert Markdown to HTML code</li>
-              <li><a href="/markdown-to-pdf/" className="text-blue-500 hover:underline">Markdown to PDF</a> — Export Markdown as PDF files</li>
-            </ul>
-          </div>
+          <h3 className="mb-2 text-xl font-semibold">Good fit for these tasks</h3>
+          <ul className="mb-6 list-inside list-disc space-y-2" style={{ color: "var(--muted)" }}>
+            <li>Meeting notes that need to be shared in Word format</li>
+            <li>Project docs, proposals, and internal handoff files</li>
+            <li>Assignments or reports that require a .docx submission</li>
+            <li>Teams that write in Markdown but deliver outside developer tools</li>
+          </ul>
 
-          <h2 className="mb-4 mt-10 text-2xl font-bold">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            {faqData.map((f, i) => (
-              <details key={i} className="rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
-                <summary className="cursor-pointer font-medium">{f.q}</summary>
-                <p className="mt-2 text-sm" style={{ color: "var(--muted)" }}>{f.a}</p>
-              </details>
+          <h3 className="mb-2 text-xl font-semibold">What to expect from the export</h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              "Standard .docx output",
+              "Readable heading hierarchy",
+              "Lists and bold text preserved",
+              "Generated in browser without upload",
+            ].map((item) => (
+              <div key={item} className="rounded-2xl border p-4 text-sm" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+                {item}
+              </div>
             ))}
           </div>
-        </section>
+        </div>
 
-      </div>
-    </>
+        <aside className="space-y-4">
+          <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+            <h3 className="mb-2 font-semibold">Compatibility notes</h3>
+            <ul className="space-y-2 text-sm" style={{ color: "var(--muted)" }}>
+              <li>Opens in Microsoft Word</li>
+              <li>Compatible with Google Docs</li>
+              <li>Works with LibreOffice</li>
+              <li>Best for editable delivery workflows</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border p-4" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+            <h3 className="mb-2 font-semibold">Related tools</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/markdown-to-html/" className="text-blue-500 hover:underline">Markdown to HTML</Link></li>
+              <li><Link href="/markdown-to-pdf/" className="text-blue-500 hover:underline">Markdown to PDF</Link></li>
+              <li><Link href="/markdown-table-generator/" className="text-blue-500 hover:underline">Markdown Table Generator</Link></li>
+            </ul>
+          </div>
+        </aside>
+      </section>
+
+      <section className="mt-12 max-w-4xl">
+        <h2 className="mb-4 text-2xl font-bold">Frequently asked questions</h2>
+        <div className="space-y-4">
+          {faqData.map((f, i) => (
+            <details key={i} className="rounded-2xl border p-4" style={{ borderColor: "var(--border)" }}>
+              <summary className="cursor-pointer font-medium">{f.q}</summary>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

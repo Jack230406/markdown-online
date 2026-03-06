@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://markdownonline.com/sitemap.xml
+Sitemap: https://markdownonline.app/sitemap.xml

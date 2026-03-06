@@ -318,6 +318,16 @@ em { font-style: italic; }
               {action.icon}
             </button>
           ))}
+          <div className="ml-auto">
+            <button
+              type="button"
+              onClick={() => setOutlineOpen((v) => !v)}
+              className="rounded border px-3 py-1.5 text-xs font-semibold transition-colors hover:bg-[var(--surface-alt)]"
+              style={{ borderColor: "var(--border)", background: "var(--background)" }}
+            >
+              {outlineOpen ? "Hide outline" : "Outline"}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -327,15 +337,6 @@ em { font-style: italic; }
       </div>
 
       <div className="relative flex flex-1 overflow-hidden">
-        <button
-          type="button"
-          onClick={() => setOutlineOpen((v) => !v)}
-          className="absolute left-3 top-3 z-20 hidden rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors hover:bg-[var(--surface-alt)] md:block"
-          style={{ borderColor: "var(--border)", background: "var(--background)" }}
-        >
-          {outlineOpen ? "Hide outline" : "Outline"}
-        </button>
-
         {outlineOpen && (
           <aside className="hidden w-72 shrink-0 border-r p-3 md:block" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
             <div className="rounded-2xl border p-3" style={{ borderColor: "var(--border)", background: "var(--background)" }}>

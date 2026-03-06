@@ -54,7 +54,21 @@
     "ctaPdf": "打开 Markdown 转 PDF",
     "ctaHtml": "转换 Markdown 为 HTML",
     "ctaWord": "导出 Markdown 为 Word",
-    "ctaTable": "生成 Markdown 表格"
+    "ctaTable": "生成 Markdown 表格",
+    "ctaTemplates": "查看模板",
+    "templatesTitle": "从现成模板开始",
+    "templateReadmeId": "readme",
+    "templateReadmeTitle": "README 模板",
+    "templateReadmeDesc": "快速搭好项目简介、安装、使用方式和路线图结构。",
+    "templateBlogId": "blog-post",
+    "templateBlogTitle": "博客文章模板",
+    "templateBlogDesc": "直接使用包含引言、要点、示例和结论的文章结构。",
+    "templateMeetingId": "meeting-notes",
+    "templateMeetingTitle": "会议记录模板",
+    "templateMeetingDesc": "用清晰格式记录议程、结论、行动项和下一步。",
+    "templateDocsId": "documentation",
+    "templateDocsTitle": "文档模板",
+    "templateDocsDesc": "使用包含概览、前置条件、步骤和 FAQ 的实用文档结构。"
   },
   "editor": {
     "toolbar": {

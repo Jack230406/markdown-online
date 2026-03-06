@@ -242,6 +242,30 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/privacy/" />
   </url>
   <url>
+    <loc>https://markdownonline.app/templates/</loc>
+    <lastmod>2026-03-06</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/templates/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/templates/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/templates/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/es/templates/</loc>
+    <lastmod>2026-03-06</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/templates/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/templates/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/templates/" />
+  </url>
+  <url>
+    <loc>https://markdownonline.app/zh/templates/</loc>
+    <lastmod>2026-03-06</lastmod>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markdownonline.app/templates/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://markdownonline.app/es/templates/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://markdownonline.app/zh/templates/" />
+  </url>
+  <url>
     <loc>https://markdownonline.app/terms/</loc>
     <lastmod>2026-03-06</lastmod>
     <priority>0.7</priority>

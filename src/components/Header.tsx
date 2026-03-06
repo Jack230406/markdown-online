@@ -16,6 +16,7 @@ export function Header() {
   useEffect(() => setMounted(true), []);
 
   const toolLinks = [
+    { href: "/templates" as const, label: "Templates" },
     { href: "/markdown-to-html" as const, label: t("toHtml") },
     { href: "/markdown-to-pdf" as const, label: t("toPdf") },
     { href: "/markdown-to-word" as const, label: t("toWord") },

@@ -33,6 +33,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations("home");
   const localePrefix = locale === "en" ? "" : `/${locale}`;
   const primaryCtas = [
+    { href: `${localePrefix}/templates/`, label: t("ctaTemplates") },
     { href: `${localePrefix}/markdown-to-pdf/`, label: t("ctaPdf") },
     { href: `${localePrefix}/markdown-to-html/`, label: t("ctaHtml") },
     { href: `${localePrefix}/markdown-to-word/`, label: t("ctaWord") },
@@ -122,6 +123,21 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* Use cases */}
         <h2 className="mb-3 text-xl font-semibold">{t("useCasesTitle")}</h2>
         <p className="mb-8 text-base leading-relaxed" style={{ color: "var(--muted)" }}>{t("useCasesDesc")}</p>
+
+        <h2 className="mb-4 text-xl font-semibold">{t("templatesTitle")}</h2>
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {(["templateReadme", "templateBlog", "templateMeeting", "templateDocs"] as const).map((key) => (
+            <Link
+              key={key}
+              href={`${localePrefix}/?template=${t(`${key}Id`)}`}
+              className="rounded-lg border p-4 transition-colors hover:text-primary"
+              style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+            >
+              <h3 className="mb-2 text-base font-semibold">{t(`${key}Title`)}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{t(`${key}Desc`)}</p>
+            </Link>
+          ))}
+        </div>
 
         {/* How it works */}
         <h2 className="mb-4 text-xl font-semibold">{t("howItWorksTitle")}</h2>

@@ -54,7 +54,21 @@
     "ctaPdf": "Open Markdown to PDF",
     "ctaHtml": "Convert Markdown to HTML",
     "ctaWord": "Export Markdown to Word",
-    "ctaTable": "Generate a Markdown table"
+    "ctaTable": "Generate a Markdown table",
+    "ctaTemplates": "Browse templates",
+    "templatesTitle": "Start with a ready-made template",
+    "templateReadmeId": "readme",
+    "templateReadmeTitle": "README template",
+    "templateReadmeDesc": "Set up project overview, install steps, usage, and roadmap sections fast.",
+    "templateBlogId": "blog-post",
+    "templateBlogTitle": "Blog post template",
+    "templateBlogDesc": "Start with a post structure for intro, takeaways, examples, and conclusion.",
+    "templateMeetingId": "meeting-notes",
+    "templateMeetingTitle": "Meeting notes template",
+    "templateMeetingDesc": "Capture agenda, decisions, action items, and next steps in a clean format.",
+    "templateDocsId": "documentation",
+    "templateDocsTitle": "Documentation template",
+    "templateDocsDesc": "Use a practical docs outline with overview, prerequisites, steps, and FAQ."
   },
   "editor": {
     "toolbar": {

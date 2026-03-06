@@ -54,7 +54,21 @@
     "ctaPdf": "Abrir Markdown a PDF",
     "ctaHtml": "Convertir Markdown a HTML",
     "ctaWord": "Exportar Markdown a Word",
-    "ctaTable": "Generar una tabla Markdown"
+    "ctaTable": "Generar una tabla Markdown",
+    "ctaTemplates": "Ver plantillas",
+    "templatesTitle": "Empieza con una plantilla lista",
+    "templateReadmeId": "readme",
+    "templateReadmeTitle": "Plantilla README",
+    "templateReadmeDesc": "Configura rápido la visión general del proyecto, instalación, uso y roadmap.",
+    "templateBlogId": "blog-post",
+    "templateBlogTitle": "Plantilla de blog",
+    "templateBlogDesc": "Empieza con una estructura para introducción, ideas clave, ejemplos y conclusión.",
+    "templateMeetingId": "meeting-notes",
+    "templateMeetingTitle": "Plantilla de notas de reunión",
+    "templateMeetingDesc": "Captura agenda, decisiones, tareas y próximos pasos en un formato limpio.",
+    "templateDocsId": "documentation",
+    "templateDocsTitle": "Plantilla de documentación",
+    "templateDocsDesc": "Usa una estructura práctica con resumen, requisitos, pasos y FAQ."
   },
   "editor": {
     "toolbar": {

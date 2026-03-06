@@ -321,48 +321,56 @@ em { font-style: italic; }
         </div>
       </div>
 
-      <div className="border-b px-4 py-3" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
-        <details
-          className="rounded-2xl border"
-          style={{ borderColor: "var(--border)", background: "var(--background)" }}
-          open={outlineOpen}
-          onToggle={(e) => setOutlineOpen((e.currentTarget as HTMLDetailsElement).open)}
-        >
-          <summary className="cursor-pointer list-none px-4 py-3 text-sm font-semibold uppercase tracking-wide select-none">
-            <div className="flex items-center justify-between">
-              <span>Outline</span>
-              <span style={{ color: "var(--muted)" }}>{outlineOpen ? "−" : "+"}</span>
-            </div>
-          </summary>
-          <div className="border-t px-4 py-3" style={{ borderColor: "var(--border)" }}>
-            {outline.length === 0 ? (
-              <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                Add headings like #, ##, or ### to generate a clickable outline for longer documents.
-              </p>
-            ) : (
-              <div className="space-y-2">
-                {outline.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => jumpToHeading(item.id)}
-                    className="block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
-                    style={{ paddingLeft: `${0.75 + (item.level - 1) * 0.75}rem` }}
-                  >
-                    {item.text}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        </details>
-      </div>
-
       <div className="flex border-b md:hidden" style={{ borderColor: "var(--border)" }}>
         <button onClick={() => setActiveTab("editor")} className={`flex-1 py-2 text-center text-sm font-medium transition-colors ${activeTab === "editor" ? "border-b-2 border-primary text-primary" : ""}`} style={activeTab !== "editor" ? { color: "var(--muted)" } : undefined}>Editor</button>
         <button onClick={() => setActiveTab("preview")} className={`flex-1 py-2 text-center text-sm font-medium transition-colors ${activeTab === "preview" ? "border-b-2 border-primary text-primary" : ""}`} style={activeTab !== "preview" ? { color: "var(--muted)" } : undefined}>Preview</button>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="relative flex flex-1 overflow-hidden">
+        <button
+          type="button"
+          onClick={() => setOutlineOpen((v) => !v)}
+          className="absolute left-3 top-3 z-20 hidden rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-colors hover:bg-[var(--surface-alt)] md:block"
+          style={{ borderColor: "var(--border)", background: "var(--background)" }}
+        >
+          {outlineOpen ? "Hide outline" : "Outline"}
+        </button>
+
+        {outlineOpen && (
+          <aside className="hidden w-72 shrink-0 border-r p-3 md:block" style={{ borderColor: "var(--border)", background: "var(--surface)" }}>
+            <div className="rounded-2xl border p-3" style={{ borderColor: "var(--border)", background: "var(--background)" }}>
+              <div className="mb-2 flex items-center justify-between">
+                <h2 className="text-sm font-semibold uppercase tracking-wide">Outline</h2>
+                <button
+                  type="button"
+                  onClick={() => setOutlineOpen(false)}
+                  className="rounded px-2 py-1 text-xs transition-colors hover:bg-[var(--surface-alt)]"
+                >
+                  ✕
+                </button>
+              </div>
+              {outline.length === 0 ? (
+                <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                  Add headings like #, ##, or ### to generate a clickable outline for longer documents.
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {outline.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => jumpToHeading(item.id)}
+                      className="block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-[var(--surface-alt)] hover:text-primary"
+                      style={{ paddingLeft: `${0.75 + (item.level - 1) * 0.75}rem` }}
+                    >
+                      {item.text}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </aside>
+        )}
+
         <div className={`flex-1 ${activeTab === "preview" ? "hidden md:flex" : "flex"} flex-col`} style={{ borderRight: "1px solid var(--border)" }}>
           <textarea ref={textareaRef} value={content} onChange={(e) => setContent(e.target.value)} onKeyDown={handleKeyDown} onScroll={handleEditorScroll} className="editor-textarea h-full w-full flex-1 border-none bg-transparent p-4 outline-none" placeholder="Type your Markdown here..." spellCheck={false} />
         </div>
